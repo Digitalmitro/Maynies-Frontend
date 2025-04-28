@@ -1,5 +1,5 @@
 import { IoLogoFacebook } from "react-icons/io";
-import { FaTwitter } from "react-icons/fa";
+import { FaSquareTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
@@ -17,15 +17,15 @@ function Footer() {
             Amet minim mollit non deserunt ullamco est sit aliqua dolor amet
             sint. Amet minim mollit non deserunt ullamco est sit aliqua.
           </p>
-          <div className="flex gap-4 pt-2">
+          <div className="flex gap-4 pt-2 text-[#00953B]">
             <Link to="#">
-              <IoLogoFacebook size={25} />
+              <IoLogoFacebook size={25} className="bg-white"/>
             </Link>
             <Link to="#">
-              <FaTwitter size={25} />
+              <FaSquareTwitter size={25} className="bg-white"/>
             </Link>
             <Link to="#">
-              <FaLinkedin size={25} />
+              <FaLinkedin size={25} className="bg-white"/>
             </Link>
           </div>
         </div>
@@ -74,7 +74,7 @@ function Footer() {
 
       {/* Footer bottom */}
       <div className="border-t border-gray-700 mt-8 pt-4 text-center text-[13px]">
-        Copyright © {new Date().getFullYear()} Digitalmitro. All Rights
+        Copyright © {new Date().getFullYear()} <Link to={"https://digitalmitro.com/"}>Digitalmitro</Link>. All Rights
         Reserved.
       </div>
     </div>

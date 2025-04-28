@@ -199,7 +199,7 @@ function Content() {
         </motion.h2>
         <div className="flex p-4">
           <div className="w-[60%]  p-6">
-            <h3 className="text-[25px] w-[350px] font-medium">
+            <h3 className="text-[25px] w-[350px] font-medium pb-4">
               Your experience is everything to us
             </h3>
             <div className="flex space-x-4">
@@ -245,9 +245,9 @@ function Content() {
         </div>
       </div>
 
-      <div className="bg-[#f3f3f3] py-10">
+      <div className="bg-[#f3f3f3] py-0">
         <motion.h2
-          className="text-[36px] font-semibold py-[40px] text-center"
+          className="text-[36px] font-semibold  text-center"
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.5 }}
@@ -295,8 +295,10 @@ function Content() {
 
               {/* Bottom Circle Number */}
               <div className="mt-4">
-                <div className="w-[50px] h-[50px] rounded-full border-2 border-[#fe9900] bg-white flex items-center justify-center text-[#00953B] font-bold text-xl">
+                <div className="w-[60px] h-[60px] rounded-full border border-[#FE9900] flex items-center justify-center">
+                <div className="w-[50px] h-[50px] rounded-full border-2 border-white text-white flex items-center justify-center bg-[#00953B] font-bold text-xl">
                   {items.id}
+                </div>
                 </div>
               </div>
             </motion.div>
