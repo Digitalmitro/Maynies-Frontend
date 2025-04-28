@@ -125,9 +125,9 @@ function Content() {
     <div>
       <div className="relative ">
         <img src={banner} alt="" className="w-full h-auto" />
-        <div className="absolute top-[150px] left-10">
+        <div className="absolute top-[150px] lg:left-10">
           <motion.p
-            className="text-[40px] font-bold w-[50%] counter"
+            className="lg:text-[40px] font-bold lg:w-[50%] counter"
             data-aos="fade-up"
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -304,7 +304,7 @@ function Content() {
         </div>
       </div>
 
-      <div className="bg-white h-[868px]">
+      <div className="bg-white h-[780px]">
         <motion.h2
           className="text-center py-10 font-semibold text-[36px]"
           initial={{ opacity: 0, y: -50 }}
