@@ -1,18 +1,26 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Homepage/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
-
+import Aboutus from "./pages/StaticPages/Aboutus";
+import MainLayout from "./components/MainLayout";
+import PlainLayout from "./components/PlainLayout";
+import Home from "./pages/Homepage/Home";
 function App() {
   return (
-    <div className="">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+    <BrowserRouter>
+      <Routes>
+        {/* Routes with Navbar + Footer */} 
+       <Route element={<MainLayout />}>
+        <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<Aboutus />} />
+        </Route>
 
-        </Routes>
-      </BrowserRouter>
-    </div>
+        {/* Routes without Navbar + Footer */}
+        <Route element={<PlainLayout />}>
+          <Route path="/login" element={<Login />} />
+          
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

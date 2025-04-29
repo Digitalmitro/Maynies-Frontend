@@ -1,5 +1,6 @@
 import banner from "../../assets/content-banner.png";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import CountUp from "react-countup";
 import mission2 from "../../assets/home/mission2.svg";
 import mission1 from "../../assets/home/mission1.svg";
 import mission3 from "../../assets/home/mission3.svg";
@@ -18,6 +19,7 @@ import { IoLogoFacebook } from "react-icons/io";
 import { FaSquareInstagram } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 const dummyMission = [
   {
     id: 1,
@@ -121,10 +123,20 @@ const dummyTeam = [
   },
 ];
 function Content() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
   return (
     <div>
       <div className="relative ">
-        <img src={banner} alt="" className="w-full h-auto" />
+        <motion.img
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 1 }}
+          src={banner}
+          alt=""
+          className="w-full h-auto"
+        />
         <div className="absolute top-[150px] lg:left-10">
           <motion.p
             className="lg:text-[40px] font-bold lg:w-[50%] counter"
@@ -187,7 +199,7 @@ function Content() {
         </div>
       </div>
 
-      <div className="bg-white h-[723px] pt-10 ">
+      <div className="bg-white h-[700px] pt-10 ">
         <motion.h2
           className="text-center font-semibold text-[36px]"
           initial={{ opacity: 0, y: -50 }}
@@ -221,11 +233,15 @@ function Content() {
             </div>
             <div className="flex justify-between  w-[550px] pt-10">
               <div className="flex justify-center gap-2 border-b items-center hover:border-[#00953B]">
-                <p className="text-[40px] font-semibold">240+</p>
+                <p ref={ref} className="text-[40px] font-semibold">
+                  {isInView ? <CountUp end={240} duration={1.2} /> : 0}+
+                </p>
                 <p className="w-[50px]">Business Peoples</p>
               </div>
               <div className="flex justify-center gap-2 border-b items-center hover:border-[#00953B]">
-                <p className="text-[40px] font-semibold">100%</p>
+              <p ref={ref} className="text-[40px] font-semibold">
+                  {isInView ? <CountUp end={100} duration={1.2} /> : 0}%
+                </p>
                 <p className="w-[50px]">Customer Satisfaction</p>
               </div>
             </div>
@@ -245,7 +261,7 @@ function Content() {
         </div>
       </div>
 
-      <div className="bg-[#f3f3f3] py-0">
+      <div className="bg-[#f3f3f3] h-[500px] flex flex-col justify-center items-center">
         <motion.h2
           className="text-[36px] font-semibold  text-center"
           initial={{ opacity: 0, y: -50 }}
@@ -296,9 +312,9 @@ function Content() {
               {/* Bottom Circle Number */}
               <div className="mt-4">
                 <div className="w-[60px] h-[60px] rounded-full border border-[#FE9900] flex items-center justify-center">
-                <div className="w-[50px] h-[50px] rounded-full border-2 border-white text-white flex items-center justify-center bg-[#00953B] font-bold text-xl">
-                  {items.id}
-                </div>
+                  <div className="w-[50px] h-[50px] rounded-full border-3 border-white text-white flex items-center justify-center bg-[#00953B] font-bold text-xl">
+                    {items.id}
+                  </div>
                 </div>
               </div>
             </motion.div>
