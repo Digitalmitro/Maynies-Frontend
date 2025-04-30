@@ -8,7 +8,9 @@ const MainLayout = () => {
     <div className="bg-[#F4F4F4]">
       <LinkBanner />
       <Navbar />
+      <div className="mt-[122px]">
       <Outlet />
+      </div>
       <Footer />
     </div>
   );

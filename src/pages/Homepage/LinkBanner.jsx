@@ -7,7 +7,7 @@ import twitter from "../../assets/twitter.svg";
 import facebook from "../../assets/facebook.svg";
 function LinkBanner() {
   return (
-    <div className="w-full">
+    <div className="w-full fixed top-0 z-50 shadow">
       <div className="h-[40px] flex bg-black text-[13px] text-white p-1 justify-between items-center">
         <div className="flex w-[50%] space-x-8 px-4">
           <p className="flex">
