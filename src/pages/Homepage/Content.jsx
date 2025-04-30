@@ -2,7 +2,7 @@ import banner from "../../assets/content-banner.png";
 import { motion, useInView } from "framer-motion";
 import CountUp from "react-countup";
 import mission2 from "../../assets/home/mission2.svg";
-import mission1 from "../../assets/home/mission1.svg";
+import mission1 from "../../assets/home/mission1.png";
 import mission3 from "../../assets/home/mission3.svg";
 import mission4 from "../../assets/home/mission4.svg";
 import mission5 from "../../assets/home/mission5.svg";

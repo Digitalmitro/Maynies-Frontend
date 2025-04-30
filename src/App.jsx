@@ -4,6 +4,7 @@ import Aboutus from "./pages/StaticPages/Aboutus";
 import MainLayout from "./components/MainLayout";
 import PlainLayout from "./components/PlainLayout";
 import Home from "./pages/Homepage/Home";
+import Contactus from "./pages/StaticPages/Contactus";
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,8 @@ function App() {
        <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<Aboutus />} />
+          <Route path="/contact-us" element={<Contactus />} />
+
         </Route>
 
         {/* Routes without Navbar + Footer */}

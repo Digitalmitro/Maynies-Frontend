@@ -8,6 +8,7 @@ import about_9 from "../../assets/about/about_9.svg";
 import about_7 from "../../assets/about/about_7.svg";
 import about_8 from "../../assets/about/about_8.svg";
 import image from "../../assets/about/image.png";
+import banner from "../../assets/about/about-banner.png";
 import { motion } from "framer-motion";
 function Aboutus() {
   const reviews = [
@@ -66,21 +67,30 @@ function Aboutus() {
   ];
 
   return (
-    <motion.div
-      className="bg-[#EDECEC] w-full"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.h2
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: false, amount: 0.5 }}
-        className="text-[#FE9900] font-semibold text-[30px] border-b border-gray-400 mx-10 py-4"
-      >
-        About Us
-      </motion.h2>
+    <div className="bg-[#EDECEC] w-full">
+      <div className="relative w-full">
+        <motion.img
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 1 }}
+          src={banner}
+          alt=""
+          className="w-full h-auto brightness-75" 
+        />
+        <div className="absolute inset-0 bg-white/50 z-10" />
+        <motion.h2
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.5 }}
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                font-semibold text-[40px] z-20 text-center"
+        >
+          About Us
+        </motion.h2>
+      </div>
+
       <motion.div
         className="flex p-10 w-full justify-between"
         initial={{ opacity: 0, y: 50 }}
@@ -213,42 +223,42 @@ function Aboutus() {
           </p>
         </motion.div>
         {/* Review Cards */}
-  <motion.div
-    className="flex flex-wrap justify-evenly gap-8 py-8"
-    initial="hidden"
-    whileInView="visible"
-    variants={{
-      hidden: {},
-      visible: {
-        transition: {
-          staggerChildren: 0.2,
-        },
-      },
-    }}
-    viewport={{ once: true, amount: 0.2 }}
-  >
-    {reviews.map((review) => (
-      <motion.div
-        key={review.id}
-        className="flex flex-col items-center text-center"
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: { opacity: 1, y: 0 },
-        }}
-        transition={{ duration: 0.5 }}
-      >
-        <img
-          src={review.logo}
-          alt={review.platform}
-          className="w-[180px] h-auto"
-        />
-        <div className="text-yellow-500">{review.stars}</div>
-        <p className="text-sm text-gray-600">{review.text}</p>
-      </motion.div>
-    ))}
-  </motion.div>
+        <motion.div
+          className="flex flex-wrap justify-evenly gap-8 py-8"
+          initial="hidden"
+          whileInView="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+          viewport={{ once: false, amount: 0.2 }}
+        >
+          {reviews.map((review) => (
+            <motion.div
+              key={review.id}
+              className="flex flex-col items-center text-center"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <img
+                src={review.logo}
+                alt={review.platform}
+                className="w-[180px] h-auto"
+              />
+              <div className="text-yellow-500">{review.stars}</div>
+              <p className="text-sm text-gray-600">{review.text}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

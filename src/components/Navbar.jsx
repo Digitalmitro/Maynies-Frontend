@@ -13,11 +13,11 @@ function Navbar() {
                 <ul className='flex justify-evenly items-center w-full'>
                     <Link to={"/"} className="hover:text-[#00953B]">Home</Link>
                     <Link to={"/about-us"} className="hover:text-[#00953B]">About Us</Link>
-                    <Link className="hover:text-[#00953B]">Employee Portal</Link>
+                    <Link  className="hover:text-[#00953B]">Employee Portal</Link>
                     <Link className="hover:text-[#00953B]">Student Portal</Link>
                     <Link className="hover:text-[#00953B]">Careers</Link>
                     <Link className="hover:text-[#00953B]">Marketplace</Link>
-                    <Link className="hover:text-[#00953B]">Contact Us</Link>
+                    <Link to={"/contact-us"} className="hover:text-[#00953B]">Contact Us</Link>
                     <Link to={"/login"} className="hover:text-[#00953B]">Sign Up/Log in</Link>
                 </ul>
             </div>
