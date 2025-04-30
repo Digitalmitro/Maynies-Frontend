@@ -64,7 +64,6 @@ function Aboutus() {
       subtitle: "Helping Organizations Grow",
     },
   ];
-  
 
   return (
     <motion.div
@@ -88,7 +87,6 @@ function Aboutus() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: false, amount: 0.4 }}
-
       >
         <div className="w-[50%] space-y-2">
           <motion.p
@@ -125,83 +123,85 @@ function Aboutus() {
         </div>
         <div className="w-[50%] flex justify-end">
           <motion.img
-           initial={{ opacity: 0, scale: 0.8 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           transition={{ duration: 0.6 }}
-           viewport={{ once: false, amount: 0.3 }}
-           src={image_1} alt="" className="w-[80%]" />
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false, amount: 0.3 }}
+            src={image_1}
+            alt=""
+            className="w-[80%]"
+          />
         </div>
       </motion.div>
 
       <div className="bg-white flex flex-wrap justify-evenly h-[400px]">
-      {stats.map((item, index) => (
+        {stats.map((item, index) => (
+          <motion.div
+            key={item.id}
+            className="flex flex-col justify-center items-center"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.2 }}
+            viewport={{ once: false, amount: 0.4 }}
+          >
+            <div className="p-4 border border-[#FE9900] rounded-xl">
+              <img
+                src={item.img}
+                alt={item.subtitle}
+                className="w-[134px] h-[134px]"
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center mt-2">
+              <h2 className="text-[40px]">{item.title}</h2>
+              <p className="font-medium text-center">{item.subtitle}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="flex p-10">
+        {/* Left Image */}
         <motion.div
-          key={item.id}
-          className="flex flex-col justify-center items-center"
+          className="w-[50%]"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          <img src={image} alt="" className="w-[80%]" />
+        </motion.div>
+
+        {/* Right Text */}
+        <motion.div
+          className="w-[50%] space-y-2"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: index * 0.2 }}
-          viewport={{ once: false, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.3 }}
         >
-          <div className="p-4 border border-[#FE9900] rounded-xl">
-            <img
-              src={item.img}
-              alt={item.subtitle}
-              className="w-[134px] h-[134px]"
-            />
-          </div>
-          <div className="flex flex-col justify-center items-center mt-2">
-            <h2 className="text-[40px]">{item.title}</h2>
-            <p className="font-medium text-center">{item.subtitle}</p>
-          </div>
+          <h3 className="text-[30px] font-semibold">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+          </h3>
+          <p className="text-justify">
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries,
+          </p>
+          <button className="bg-[#FE9900] rounded-2xl px-4 py-1 text-white mt-4">
+            Contact Us
+          </button>
         </motion.div>
-      ))}
-    </div>
-
-    <motion.div className="flex p-10">
-  {/* Left Image */}
-  <motion.div
-    className="w-[50%]"
-    initial={{ opacity: 0, x: -50 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.6 }}
-    viewport={{ once: false, amount: 0.3 }}
-  >
-    <img src={image} alt="" className="w-[80%]" />
-  </motion.div>
-
-  {/* Right Text */}
-  <motion.div
-    className="w-[50%] space-y-2"
-    initial={{ opacity: 0, x: 50 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    transition={{ duration: 0.6, delay: 0.2 }}
-    viewport={{ once: false, amount: 0.3 }}
-  >
-    <h3 className="text-[30px] font-semibold">
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-    </h3>
-    <p className="text-justify">
-      Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry. Lorem Ipsum has been the industry's standard dummy text
-      ever since the 1500s, when an unknown printer took a galley of type
-      and scrambled it to make a type specimen book. It has survived not
-      only five centuries,
-    </p>
-    <button className="bg-[#FE9900] rounded-2xl px-4 py-1 text-white mt-4">
-      Contact Us
-    </button>
-  </motion.div>
-</motion.div>
-
+      </div>
 
       <div className="px-10 py-5 bg-white w-full">
-        <motion.div 
-        className="flex flex-col justify-center items-center"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.3 }}
+        <motion.div
+          className="flex flex-col justify-center items-center"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: false, amount: 0.3 }}
         >
           <img src={about_4} alt="" className="w-[40%]" />
           <p className="text-center px-10">
@@ -212,22 +212,41 @@ function Aboutus() {
             here', making
           </p>
         </motion.div>
-        <div className="flex flex-wrap justify-evenly gap-8 py-8">
-          {reviews.map((review) => (
-            <div
-              key={review.id}
-              className="flex flex-col items-center text-center "
-            >
-              <img
-                src={review.logo}
-                alt={review.platform}
-                className="w-[180px] h-auto"
-              />
-              <div className="text-yellow-500">{review.stars}</div>
-              <p className="text-sm text-gray-600">{review.text}</p>
-            </div>
-          ))}
-        </div>
+        {/* Review Cards */}
+  <motion.div
+    className="flex flex-wrap justify-evenly gap-8 py-8"
+    initial="hidden"
+    whileInView="visible"
+    variants={{
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: 0.2,
+        },
+      },
+    }}
+    viewport={{ once: true, amount: 0.2 }}
+  >
+    {reviews.map((review) => (
+      <motion.div
+        key={review.id}
+        className="flex flex-col items-center text-center"
+        variants={{
+          hidden: { opacity: 0, y: 30 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        transition={{ duration: 0.5 }}
+      >
+        <img
+          src={review.logo}
+          alt={review.platform}
+          className="w-[180px] h-auto"
+        />
+        <div className="text-yellow-500">{review.stars}</div>
+        <p className="text-sm text-gray-600">{review.text}</p>
+      </motion.div>
+    ))}
+  </motion.div>
       </div>
     </motion.div>
   );
