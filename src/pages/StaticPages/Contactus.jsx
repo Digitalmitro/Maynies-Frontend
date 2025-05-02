@@ -49,37 +49,38 @@ function Contactus() {
     <div>
       {thank ? (
         <>
-      <div className="w-full bg-[#EDECEC] h-[400px] flex flex-col justify-center items-center px-4 text-center">
-  <motion.p
-    initial={{ opacity: 0, y: -20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true, amount: 0.5 }}
-    className="text-green-600 font-medium text-sm"
-  >
-    Submission Successful
-  </motion.p>
+          <div className="w-full bg-[#EDECEC] h-[400px] flex flex-col justify-center items-center px-4 text-center">
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true, amount: 0.5 }}
+              className="text-green-600 font-medium text-sm"
+            >
+              Submission Successful
+            </motion.p>
 
-  <motion.h2
-    initial={{ opacity: 0, y: -20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: 0.2 }}
-    viewport={{ once: true, amount: 0.5 }}
-    className="font-semibold text-[28px] sm:text-[36px] md:text-[40px] leading-tight mt-2"
-  >
-    Thank You for Contacting Us!
-  </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true, amount: 0.5 }}
+              className="font-semibold text-[28px] sm:text-[36px] md:text-[40px] leading-tight mt-2"
+            >
+              Thank You for Contacting Us!
+            </motion.h2>
 
-  <motion.p
-    initial={{ opacity: 0, y: -20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: 0.4 }}
-    viewport={{ once: true, amount: 0.5 }}
-    className="text-gray-700 text-sm sm:text-base mt-3"
-  >
-    We'll contact you with further information within 1–2 business days.
-  </motion.p>
-</div>
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true, amount: 0.5 }}
+              className="text-gray-700 text-sm sm:text-base mt-3"
+            >
+              We'll contact you with further information within 1–2 business
+              days.
+            </motion.p>
+          </div>
         </>
       ) : (
         <>
@@ -106,128 +107,126 @@ function Contactus() {
             </motion.h2>
           </div>
           <div className="flex justify-center items-center px-20 py-[100px] w-full">
-        {/* Contact Info Section */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-          className="space-y-4 w-[40%] flex flex-col justify-center lg:pl-20"
-        >
-          <h4 className="text-xl font-semibold">Way to reach us:</h4>
-          <p className="text-[#00953B]">+1 405 638-5343</p>
-          <p className="text-[#00953B]">maynies05@gmail.com</p>
-          <p>Monday-Friday 9:00am-5:00pm MST</p>
-          <h4 className="text-xl font-semibold pt-2">
-            Head Office & Mailing Address:
-          </h4>
-          <p className="w-[200px]">
-            #210-1702 4 Street SW Calgary, Alberta, Canada T2S 3A8
-          </p>
-        </motion.div>
+            {/* Contact Info Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: false }}
+              className="space-y-4 w-[40%] flex flex-col justify-center lg:pl-20"
+            >
+              <h4 className="text-xl font-semibold">Way to reach us:</h4>
+              <p className="text-[#00953B]">+1 405 638-5343</p>
+              <p className="text-[#00953B]">maynies05@gmail.com</p>
+              <p>Monday-Friday 9:00am-5:00pm MST</p>
+              <h4 className="text-xl font-semibold pt-2">
+                Head Office & Mailing Address:
+              </h4>
+              <p className="w-[200px]">
+                #210-1702 4 Street SW Calgary, Alberta, Canada T2S 3A8
+              </p>
+            </motion.div>
 
-        {/* Map Section */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
-          className="rounded-lg overflow-hidden flex justify-center items-center w-[60%]"
-        >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.8385726795154!2d-114.07380222417746!3d51.03760214491585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371701c1ab5862d%3A0x580336b67296461b!2s1702%204%20St%20SW%20%23210%2C%20Calgary%2C%20AB%20T2S%203A8%2C%20Canada!5e0!3m2!1sen!2sin!4v1745994213624!5m2!1sen!2sin"
-            width="600"
-            height="350"
-            style={{ border: 0 }}
-            allowFullScreen=""
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </motion.div>
-      </div>
+            {/* Map Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: false }}
+              className="rounded-lg overflow-hidden flex justify-center items-center w-[60%]"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2508.8385726795154!2d-114.07380222417746!3d51.03760214491585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5371701c1ab5862d%3A0x580336b67296461b!2s1702%204%20St%20SW%20%23210%2C%20Calgary%2C%20AB%20T2S%203A8%2C%20Canada!5e0!3m2!1sen!2sin!4v1745994213624!5m2!1sen!2sin"
+                width="600"
+                height="350"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </motion.div>
+          </div>
 
-      <div className="bg-[#EDECEC] w-full px-40 py-[50px] space-y-2">
-        <motion.h2
-          className="text-[25px] font-semibold text-[#FE9900]"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-        >
-          General Inquiries or Sales
-        </motion.h2>
+          <div className="bg-[#EDECEC] w-full px-40 py-[50px] space-y-2">
+            <motion.h2
+              className="text-[25px] font-semibold text-[#FE9900]"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6 }}
+            >
+              General Inquiries or Sales
+            </motion.h2>
 
-        {/* First Row */}
-        <motion.div
-          className="flex justify-between w-full pt-4"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <input
-            type="text"
-            placeholder="First Name"
-            className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
-          />
-        </motion.div>
+       
+            <motion.div
+              className="flex justify-between w-full pt-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <input
+                type="text"
+                placeholder="First Name"
+                className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
+              />
+            </motion.div>
 
-        {/* Second Row */}
-        <motion.div
-          className="flex justify-between w-full pt-4"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <input
-            type="text"
-            placeholder="Email"
-            className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Phone"
-            className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
-          />
-        </motion.div>
+       
+            <motion.div
+              className="flex justify-between w-full pt-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <input
+                type="text"
+                placeholder="Email"
+                className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
+              />
+              <input
+                type="text"
+                placeholder="Phone"
+                className="outline-1 outline-gray-500 px-4 w-[45%] py-2 rounded"
+              />
+            </motion.div>
 
-        {/* Textarea */}
-        <motion.div
-          className="flex justify-between w-full pt-4"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <textarea
-            rows={6}
-            placeholder="How can we help you?"
-            className="outline-1 outline-gray-500 px-4 w-full py-2 rounded"
-          />
-        </motion.div>
+  
+            <motion.div
+              className="flex justify-between w-full pt-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <textarea
+                rows={6}
+                placeholder="How can we help you?"
+                className="outline-1 outline-gray-500 px-4 w-full py-2 rounded"
+              />
+            </motion.div>
 
-        {/* Submit Button */}
-        <motion.button
-          className="bg-[#FE9900] rounded-md px-4 py-2 text-white mt-4"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          onClick={handleSubmit}
-        >
-          Submit
-        </motion.button>
-      </div>
+
+            <motion.button
+              className="bg-[#FE9900] rounded-md px-4 py-2 text-white mt-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              onClick={handleSubmit}
+            >
+              Submit
+            </motion.button>
+          </div>
         </>
       )}
-
- 
 
       <div className="px-10 py-5 bg-white w-full">
         <motion.div
