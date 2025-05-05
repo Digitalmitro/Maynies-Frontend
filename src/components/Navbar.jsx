@@ -6,7 +6,7 @@ function Navbar() {
   const navigate = useNavigate()
 
   return (
-    <motion.div
+    <div
       className="w-full h-[82px] bg-[#EDECEC] fixed top-[40px] z-50 shadow "
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -29,7 +29,7 @@ function Navbar() {
           </ul>
         </div>
       </nav>
-    </motion.div>
+    </div>
   )
 }
 

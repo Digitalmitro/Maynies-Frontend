@@ -10,6 +10,8 @@ import Terms from "./pages/StaticPages/Terms";
 import Career from "./pages/career/Career";
 import Portalpage from "./pages/EmployeePortal/Portalpage";
 import Studpotal from "./pages/Student Portal/Studpotal";
+import AllMarketplace from "./pages/marketplace/AllMarketplace";
+import SingleMarketplace from "./pages/marketplace/SingleMarketplace";
 import ScrollToTop from "./ScrollToTop";
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path="/careers" element={<Career />} />
           <Route path="/employee-portal" element={<Portalpage />} />
           <Route path="/student-portal" element={<Studpotal />} />
+          <Route path="/marketplace" element={<AllMarketplace />} />
+          <Route path="/SingleMarketplace" element={<SingleMarketplace />} />
 
         </Route>
 
