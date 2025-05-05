@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react"; // Make sure to install `lucide-react`
+import { Menu, X } from "lucide-react";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ function Navbar() {
           />
         </div>
         <div className="w-[65%] flex justify-center">
-          <ul className="hidden lg:flex justify-evenly items-center w-full font-medium ">
+          <ul className="hidden lg:flex justify-evenly items-center w-full font-medium">
             <li>
               <Link to="/" className="hover:text-[#00953B]">
                 Home

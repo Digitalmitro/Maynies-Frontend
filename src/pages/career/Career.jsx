@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import career from "../../assets/about/career.png";
+import { useNavigate } from "react-router-dom";
 function Career() {
-  const handleSubmit = () => {};
+  const navigate=useNavigate();
+  const handleSubmit = () => {
+    navigate("/jobs");
+  };
   return (
     <div>
       <div className="relative w-full">
@@ -27,30 +31,22 @@ function Career() {
         </motion.h2>
       </div>
       <div className="text-center py-10 space-y-2 w-full">
-        <motion.h2
+        <h2
           className="text-[25px] font-semibold text-[#00953B]"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
         >
           Work With Us
-        </motion.h2>
+        </h2>
         <p className="w-[80%] mx-auto">
           To find out about the latest vacancies at Adamas University, please
           click on the ‘Current Vacancies’ button below. Apply
           to recruitment@adamasuniversity.ac.in
         </p>
-        <motion.button
+        <button
           className="bg-[#FE9900] rounded-md px-4 py-2 text-white mt-2"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
           onClick={handleSubmit}
         >
           View Jobs
-        </motion.button>
+        </button>
       </div>
     </div>
   );

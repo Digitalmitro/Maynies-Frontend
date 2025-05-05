@@ -13,6 +13,7 @@ import Studpotal from "./pages/Student Portal/Studpotal";
 import AllMarketplace from "./pages/marketplace/AllMarketplace";
 import SingleMarketplace from "./pages/marketplace/SingleMarketplace";
 import ScrollToTop from "./ScrollToTop";
+import AllJobs from "./pages/career/AllJobs";
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
           <Route path="/student-portal" element={<Studpotal />} />
           <Route path="/marketplace" element={<AllMarketplace />} />
           <Route path="/SingleMarketplace" element={<SingleMarketplace />} />
+          <Route path="/jobs" element={<AllJobs />} />
 
         </Route>
 
