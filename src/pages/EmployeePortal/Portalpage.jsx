@@ -66,7 +66,7 @@ function Portalpage() {
       </div>
 
       <motion.div
-        className="px-20 py-15"
+        className="lg:px-20 px-4 py-15"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}

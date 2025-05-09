@@ -22,14 +22,14 @@ function Studpotal() {
           transition={{ duration: 0.6 }}
           viewport={{ once: false, amount: 0.5 }}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                font-semibold text-[40px] z-20 text-center"
+                font-semibold lg:text-[40px] text-[28px] z-20 text-center"
         >
           Employee Portal
         </motion.h2>
       </div>
 
       <motion.div
-        className="px-20 py-15"
+        className="lg:px-20 px-4 py-15"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
