@@ -1,12 +1,13 @@
 import logo from "../assets/logo.svg";
 import login from "../assets/login.png";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoEyeSharp, IoEyeOffSharp } from 'react-icons/io5';
 
 function Login() {
   const [enabled, setEnabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate=useNavigate();
   return (
     <div className=" flex flex-col lg:flex-row ">
       <div className="flex flex-col justify-center items-center  lg:w-[35%] lg:py-10">
@@ -68,7 +69,7 @@ function Login() {
               )}
             </div>
           </div>
-          <button className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]">Log In</button>
+          <button className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]" onClick={()=>navigate("/dashboard")}>Log In</button>
           <Link className="text-[#00953B] font-normal pt-4">Forget Password?</Link>
         </form>
       </div>

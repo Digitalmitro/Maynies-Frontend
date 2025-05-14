@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import jobs from "../../assets/jobs.png";
 import { FaBuilding, FaCalendarAlt } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 const facultyData = [
   {
     location: "Alaska",
@@ -39,6 +40,7 @@ const facultyData = [
 ];
 
 function AllJobs() {
+  const navigate=useNavigate();
   return (
     <div>
     {/* Hero Banner Section */}
@@ -71,6 +73,7 @@ function AllJobs() {
         <div
           key={index}
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center py-6 gap-4 sm:gap-6 border-b border-gray-200 last:border-0"
+          onClick={()=>navigate("/job")}
         >
           {/* Location */}
           <div className="flex items-center gap-2 text-green-700 text-base sm:text-lg font-medium min-w-[120px]">

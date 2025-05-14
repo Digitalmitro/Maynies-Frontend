@@ -14,6 +14,8 @@ import AllMarketplace from "./pages/marketplace/AllMarketplace";
 import SingleMarketplace from "./pages/marketplace/SingleMarketplace";
 import ScrollToTop from "./ScrollToTop";
 import AllJobs from "./pages/career/AllJobs";
+import Job from "./pages/career/Job";
+import DashBoard from "./pages/Users/DashBoard";
 function App() {
   return (
     <BrowserRouter>
@@ -32,12 +34,15 @@ function App() {
           <Route path="/marketplace" element={<AllMarketplace />} />
           <Route path="/SingleMarketplace" element={<SingleMarketplace />} />
           <Route path="/jobs" element={<AllJobs />} />
+          <Route path="/job" element={<Job />} />
+          
 
         </Route>
 
         {/* Routes without Navbar + Footer */}
         <Route element={<PlainLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<DashBoard />} />
         </Route>
       </Routes>
     </BrowserRouter>
