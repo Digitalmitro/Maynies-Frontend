@@ -69,7 +69,7 @@ function Login() {
               )}
             </div>
           </div>
-          <button className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]" onClick={()=>navigate("/dashboard")}>Log In</button>
+          <button type="button" className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]" onClick={()=>navigate("/dashboard")}>Log In</button>
           <Link className="text-[#00953B] font-normal pt-4">Forget Password?</Link>
         </form>
       </div>
