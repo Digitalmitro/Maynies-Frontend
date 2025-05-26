@@ -3,6 +3,7 @@ import Login from "./components/Login";
 import Aboutus from "./pages/StaticPages/Aboutus";
 import MainLayout from "./components/MainLayout";
 import PlainLayout from "./components/PlainLayout";
+import DashboardLayout from "./components/DasboardLayout";
 import Home from "./pages/Homepage/Home";
 import Contactus from "./pages/StaticPages/Contactus";
 import PrivacyPolicy from "./pages/StaticPages/PrivacyPolicy";
@@ -16,10 +17,12 @@ import ScrollToTop from "./ScrollToTop";
 import AllJobs from "./pages/career/AllJobs";
 import Job from "./pages/career/Job";
 import DashBoard from "./pages/Users/DashBoard";
+import EmployeeProfile from "./pages/Users/EmployeeForm";
+import KYCForm from "./pages/Users/KYCForm";
 function App() {
   return (
     <BrowserRouter>
-    <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
         {/* Routes with Navbar + Footer */}
         <Route element={<MainLayout />}>
@@ -35,14 +38,17 @@ function App() {
           <Route path="/SingleMarketplace" element={<SingleMarketplace />} />
           <Route path="/jobs" element={<AllJobs />} />
           <Route path="/job" element={<Job />} />
-          
-
         </Route>
 
         {/* Routes without Navbar + Footer */}
         <Route element={<PlainLayout />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<DashBoard />} />
+        </Route>
+
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<DashBoard />} />
+          <Route path="profile" element={<EmployeeProfile />} />
+          <Route path="kycFrom" element={<KYCForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

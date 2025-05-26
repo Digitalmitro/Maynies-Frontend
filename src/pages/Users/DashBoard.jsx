@@ -1,17 +1,3 @@
-import logo from "../../assets/logo.svg";
-import {
-  FaFileAlt,
-  FaMoneyCheckAlt,
-  FaUmbrellaBeach,
-  FaFirstAid,
-  FaBook,
-  FaFileInvoiceDollar,
-  FaUserCheck,
-  FaChalkboardTeacher,
-  FaUsers,
-} from "react-icons/fa";
-
-//
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import { FaBell, FaCheckCircle } from "react-icons/fa";
 import {
@@ -25,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useNavigate } from "react-router-dom";
 
 ChartJS.register(
   CategoryScale,
@@ -38,21 +23,7 @@ ChartJS.register(
   Legend
 );
 
-function Sidebar() {
-  const navigate=useNavigate();
-  const navItems = [
-    { label: "Links to Employee Forms", icon: <FaFileAlt /> },
-    { label: "Loan Requests", icon: <FaMoneyCheckAlt /> },
-    { label: "Vacation Time", icon: <FaUmbrellaBeach /> },
-    { label: "Sick Time", icon: <FaFirstAid /> },
-    { label: "Policies", icon: <FaBook /> },
-    { label: "Payroll", icon: <FaFileInvoiceDollar /> },
-    { label: "Attendance", icon: <FaUserCheck /> },
-    { label: "Training", icon: <FaChalkboardTeacher /> },
-    { label: "Demographics", icon: <FaUsers /> },
-  ];
-
-  //
+function DashBoard() {
   const lineChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May"],
     datasets: [
@@ -72,7 +43,12 @@ function Sidebar() {
       {
         label: "Loan",
         data: [2000, 3000, 5000],
-        backgroundColor: ["#22C55E", "#FACC15", "#10B981"],
+        backgroundColor: "#00953B", // one color per dataset
+      },
+      {
+        label: "Salary",
+        data: [2500, 2800, 4700],
+        backgroundColor: "#FE9900",
       },
     ],
   };
@@ -88,29 +64,14 @@ function Sidebar() {
   };
   //
   return (
-    <div className="flex min-h-screen bg-[#EDECEC]">
-      <div className="w-[20%] min-h-screen  flex flex-col items-center py-6 bg-white">
-        <img src={logo} alt="Logo" className="w-[100px] mb-8" onClick={()=>navigate("/")}/>
-
-        <ul className="space-y-6 w-full px-4">
-          {navItems.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-center  px-4 py-2 hover:text-white rounded gap-3 text-gray-700 hover:bg-green-600 transition-all cursor-pointer"
-            >
-              <span className="text-lg">{item.icon}</span>
-              <span className="text-sm">{item.label}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="w-[80%] min-h-screen bg-white rounded-xl p-6  m-6 space-y-6">
+    <div className="">
+      <div className=" min-h-screen bg-white rounded-xl p-6  m-6 space-y-6">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-semibold">Hello, Employee Name!</h2>
             <p className="text-gray-500">Designation</p>
           </div>
-          <FaBell className="text-orange-400 text-xl" />
+        
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -200,36 +161,56 @@ function Sidebar() {
           </div>
 
           {/* Employee Process */}
-          {/* <div className=" p-4 rounded-md shadow-sm col-span-1 md:col-span-2 bg-[#EDECEC]">
-            <h3 className="font-semibold">Employee</h3>
-            <div className="flex items-center justify-between mt-4 text-sm">
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Pending
-              </div>
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Process
-              </div>
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Approve
-              </div>
-            </div>
-            <div className="flex items-center justify-between mt-4 text-sm">
-              <div>Vacation</div>
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Pending
-              </div>
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Process
-              </div>
-              <div className="flex items-center gap-1 text-orange-500">
-                <FaCheckCircle /> Approve
+          <div className="p-4 space-y-2 rounded-md shadow-sm col-span-1 md:col-span-2 bg-[#EDECEC]">
+            {/* Vacation Section */}
+            <div className="mt-4">
+              <h4 className="text-sm font-medium mb-2">Vacation</h4>
+              <div className="flex items-center justify-evenly w-full text-sm relative">
+                {/* Gray background line */}
+                <div className="absolute w-full bg-gray-200 rounded-full h-2"></div>
+
+                {/* Status indicators positioned on top of the line */}
+                <div className="flex justify-evenly w-full z-10">
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Pending
+                  </div>
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Process
+                  </div>
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Approve
+                  </div>
+                </div>
               </div>
             </div>
-          </div> */}
+
+            <div className="mt-4">
+              <h4 className="text-sm font-medium mb-2">Employee</h4>
+              <div className="flex items-center justify-evenly w-full text-sm relative">
+                {/* Gray background line */}
+                <div className="absolute w-full bg-gray-200 rounded-full h-2"></div>
+
+                {/* Status indicators positioned on top of the line */}
+                <div className="flex justify-evenly w-full z-10">
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Pending
+                  </div>
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Process
+                  </div>
+                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
+                    <FaCheckCircle /> Approve
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default Sidebar;
+export default DashBoard;
