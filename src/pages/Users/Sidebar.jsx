@@ -17,10 +17,10 @@ function Sidebar() {
   const navItems = [
     { label: "Links to Employee Forms", icon: <FaFileAlt /> , path:"/dashboard/profile" },
     { label: "Loan Requests", icon: <FaMoneyCheckAlt /> , path:"/dashboard/kycFrom"},
-    { label: "Vacation Time", icon: <FaUmbrellaBeach /> },
+    { label: "Vacation Time", icon: <FaUmbrellaBeach /> ,path:"/dashboard/vacation" },
     { label: "Sick Time", icon: <FaFirstAid /> },
-    { label: "Policies", icon: <FaBook /> },
-    { label: "Payroll", icon: <FaFileInvoiceDollar /> },
+    { label: "Policies", icon: <FaBook /> ,path:"/dashboard/privacy"},
+    { label: "Payroll", icon: <FaFileInvoiceDollar /> ,path:"/dashboard/payroll"},
     { label: "Attendance", icon: <FaUserCheck /> },
     { label: "Training", icon: <FaChalkboardTeacher /> },
     { label: "Demographics", icon: <FaUsers /> },

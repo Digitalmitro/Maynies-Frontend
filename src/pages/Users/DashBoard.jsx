@@ -71,7 +71,6 @@ function DashBoard() {
             <h2 className="text-2xl font-semibold">Hello, Employee Name!</h2>
             <p className="text-gray-500">Designation</p>
           </div>
-        
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -170,42 +169,64 @@ function DashBoard() {
                 <div className="absolute w-full bg-gray-200 rounded-full h-2"></div>
 
                 {/* Status indicators positioned on top of the line */}
-                <div className="flex justify-evenly w-full z-10">
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Pending
+                <div className="w-full  mt-10">
+                {/* Range Input */}
+                <div className="relative w-full ">
+                  <input
+                    type="range"
+                    min={500}
+                    max={50000}
+                    defaultValue={25000}
+                    className="w-full accent-orange-500"
+                  />
+
+                  {/* Tick Marks */}
+                  <div className="flex justify-evenly absolute top-full left-0 w-full mt-1">
+                    {[...Array(3)].map((_, index) => (
+                      <div key={index} className="w-px h-3 bg-gray-400"></div>
+                    ))}
                   </div>
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Process
-                  </div>
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Approve
+
+                  {/* Labels */}
+                  <div className="flex justify-evenly mt-1 text-xs text-gray-600">
+                    <span>Pending</span>
+                    <span>Process</span>
+                    <span>Approve</span>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
 
             <div className="mt-4">
               <h4 className="text-sm font-medium mb-2">Employee</h4>
-              <div className="flex items-center justify-evenly w-full text-sm relative">
-                {/* Gray background line */}
-                <div className="absolute w-full bg-gray-200 rounded-full h-2"></div>
+              <div className="w-full  mt-10">
+                {/* Range Input */}
+                <div className="relative w-full ">
+                  <input
+                    type="range"
+                    min={500}
+                    max={50000}
+                    defaultValue={25000}
+                    className="w-full accent-orange-500"
+                  />
 
-                {/* Status indicators positioned on top of the line */}
-                <div className="flex justify-evenly w-full z-10">
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Pending
+                  {/* Tick Marks */}
+                  <div className="flex justify-evenly absolute top-full left-0 w-full mt-1">
+                    {[...Array(3)].map((_, index) => (
+                      <div key={index} className="w-px h-3 bg-gray-400"></div>
+                    ))}
                   </div>
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Process
-                  </div>
-                  <div className="flex flex-col items-center pt-5 gap-1 text-orange-500">
-                    <FaCheckCircle /> Approve
+
+                  {/* Labels */}
+                  <div className="flex justify-evenly mt-1 text-xs text-gray-600">
+                    <span>₹500</span>
+                    <span>₹25,000</span>
+                    <span>₹50,000</span>
                   </div>
                 </div>
               </div>
             </div>
-
-          
           </div>
         </div>
       </div>

@@ -37,17 +37,17 @@ const KYCForm = () => {
       {/* Personal Info */}
       <div className="mb-6">
         <h3 className="font-semibold text-md mb-2">Personal Information</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <input placeholder="Name" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Surname" className="bg-gray-100 p-2 rounded col-span-2 sm:col-span-1" />
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 ">
+          <input placeholder="Name" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Surname" className="bg-gray-100 p-2 rounded col-span-2 sm:col-span-1 outline-blue-100" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <input placeholder="ID/Password Number" className="bg-gray-100 p-2 rounded" />
+          <input placeholder="ID/Password Number" className="bg-gray-100 p-2 rounded outline-blue-100" />
           <div className="flex gap-4">
-            <input placeholder="Email" className="bg-gray-100 p-2 rounded flex-1" />
-            <input placeholder="DOB" className="bg-gray-100 p-2 rounded w-1/2" />
+            <input placeholder="Phone" className="bg-gray-100 p-2 rounded flex-1 outline-blue-100" />
+            <input placeholder="DOB" className="bg-gray-100 p-2 rounded w-1/2 outline-blue-100" />
           </div>
-          <input placeholder="Phone" className="bg-gray-100 p-2 rounded" />
+          <input placeholder="Email" className="bg-gray-100 p-2 rounded outline-blue-100" />
         </div>
         <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
           <FaInfoCircle className="text-blue-500" /> Your email will be used for the app’s login.
@@ -62,14 +62,14 @@ const KYCForm = () => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input placeholder="Full Name" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Phone No." className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Nation" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Aadhar No." className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Tin Number" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Address" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="Postal Code" className="bg-gray-100 p-2 rounded" />
-          <input placeholder="City" className="bg-gray-100 p-2 rounded" />
+          <input placeholder="Full Name" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Phone No." className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Nation" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Aadhar No." className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Tin Number" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Address" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="Postal Code" className="bg-gray-100 p-2 rounded outline-blue-100" />
+          <input placeholder="City" className="bg-gray-100 p-2 rounded outline-blue-100" />
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import DashboardLayout from "./components/DasboardLayout";
 import Home from "./pages/Homepage/Home";
 import Contactus from "./pages/StaticPages/Contactus";
 import PrivacyPolicy from "./pages/StaticPages/PrivacyPolicy";
+import Privacy from "./pages/Users/PrivacyPolicy";
 import Terms from "./pages/StaticPages/Terms";
 import Career from "./pages/career/Career";
 import Portalpage from "./pages/EmployeePortal/Portalpage";
@@ -19,6 +20,9 @@ import Job from "./pages/career/Job";
 import DashBoard from "./pages/Users/DashBoard";
 import EmployeeProfile from "./pages/Users/EmployeeForm";
 import KYCForm from "./pages/Users/KYCForm";
+import Vacation from "./pages/Users/Vacation";
+import Payroll from "./pages/Users/Payroll";
+import ViewPayroll from "./pages/Users/ViewPayroll";
 function App() {
   return (
     <BrowserRouter>
@@ -49,6 +53,10 @@ function App() {
           <Route index element={<DashBoard />} />
           <Route path="profile" element={<EmployeeProfile />} />
           <Route path="kycFrom" element={<KYCForm />} />
+          <Route path="vacation" element={<Vacation />} />
+          <Route path="privacy" element={<Privacy />} />
+          <Route path="Payroll" element={<Payroll />} />
+          <Route path="viewPayroll" element={<ViewPayroll />} />
         </Route>
       </Routes>
     </BrowserRouter>
