@@ -1,4 +1,4 @@
-import React from "react";
+import { FaBell } from "react-icons/fa";
 
 function Demographics() {
   return (
@@ -21,7 +21,9 @@ function Demographics() {
             </p>
           </div>
         </div>
-        <span className="text-orange-500 text-2xl">🔔</span>
+        <span className="text-orange-500 text-2xl">
+          <FaBell />
+        </span>
       </div>
 
       {/* Title */}
@@ -35,14 +37,10 @@ function Demographics() {
           placeholder="Full Name"
           className="border rounded-md px-4 py-2 w-full outline-orange-400"
         />
-
-       
-       
-          <input
-            type="date"
-            className="border rounded-md px-4 py-2 w-full text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
-          />
-       
+        <input
+          type="date"
+          className="border rounded-md px-4 py-2 w-full text-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
+        />
 
         <select className="border rounded-md px-4 py-2 w-full text-gray-600">
           <option>*Country</option>
