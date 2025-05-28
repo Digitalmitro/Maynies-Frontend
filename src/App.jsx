@@ -23,6 +23,7 @@ import KYCForm from "./pages/Users/KYCForm";
 import Vacation from "./pages/Users/Vacation";
 import Payroll from "./pages/Users/Payroll";
 import ViewPayroll from "./pages/Users/ViewPayroll";
+import Demographics from "./pages/Users/Demographics";
 function App() {
   return (
     <BrowserRouter>
@@ -57,6 +58,7 @@ function App() {
           <Route path="privacy" element={<Privacy />} />
           <Route path="Payroll" element={<Payroll />} />
           <Route path="viewPayroll" element={<ViewPayroll />} />
+          <Route path="demographics" element={<Demographics />} />
         </Route>
       </Routes>
     </BrowserRouter>

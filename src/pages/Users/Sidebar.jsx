@@ -23,7 +23,7 @@ function Sidebar() {
     { label: "Payroll", icon: <FaFileInvoiceDollar /> ,path:"/dashboard/payroll"},
     { label: "Attendance", icon: <FaUserCheck /> },
     { label: "Training", icon: <FaChalkboardTeacher /> },
-    { label: "Demographics", icon: <FaUsers /> },
+    { label: "Demographics", icon: <FaUsers />, path:"/dashboard/demographics"},
   ];
 
   const handleClick = (path) => {
