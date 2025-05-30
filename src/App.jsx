@@ -24,6 +24,12 @@ import Vacation from "./pages/Users/Vacation";
 import Payroll from "./pages/Users/Payroll";
 import ViewPayroll from "./pages/Users/ViewPayroll";
 import Demographics from "./pages/Users/Demographics";
+import NotRegistered from "./components/Notregistered";
+import AdmissionForm from "./pages/Users/Admission";
+import PaymentPlans from "./pages/Users/Payment";
+import AcademicCalendar from "./pages/Users/AcademicCalendar";
+import StudentProgress from "./pages/Users/StudentProgress";
+import StudentDemographic from "./pages/Users/StudentDemographic";
 function App() {
   return (
     <BrowserRouter>
@@ -48,6 +54,7 @@ function App() {
         {/* Routes without Navbar + Footer */}
         <Route element={<PlainLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/not-registered" element={<NotRegistered />} />
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
@@ -59,6 +66,11 @@ function App() {
           <Route path="Payroll" element={<Payroll />} />
           <Route path="viewPayroll" element={<ViewPayroll />} />
           <Route path="demographics" element={<Demographics />} />
+          <Route path="admission" element={<AdmissionForm />} />
+          <Route path="payment" element={<PaymentPlans />} />
+          <Route path="progress" element={<StudentProgress/>} />
+          <Route path="calender" element={<AcademicCalendar />} />
+          <Route path="studentDemographic" element={<StudentDemographic />} />
         </Route>
       </Routes>
     </BrowserRouter>
