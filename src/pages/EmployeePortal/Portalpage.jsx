@@ -46,7 +46,7 @@ function Portalpage() {
         <motion.img
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 1 }}
           src={banner}
           alt=""
@@ -70,7 +70,7 @@ function Portalpage() {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: false, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.4 }}
       >
         <div className="flex justify-end gap-4 ">
           <button className="bg-[#D9D9D9] rounded px-4 py-1 font-semibold  mt-4">

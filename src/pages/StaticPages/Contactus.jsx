@@ -88,7 +88,7 @@ function Contactus() {
           <motion.img
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 1 }}
             src={banner}
             alt=""
@@ -163,7 +163,7 @@ function Contactus() {
             className="flex flex-col sm:flex-row justify-between w-full pt-4 gap-4 sm:gap-0"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <input
@@ -182,7 +182,7 @@ function Contactus() {
             className="flex flex-col sm:flex-row justify-between w-full pt-4 gap-4 sm:gap-0"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <input
@@ -201,7 +201,7 @@ function Contactus() {
             className="flex justify-between w-full pt-4"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
             <textarea
@@ -215,7 +215,7 @@ function Contactus() {
             className="bg-[#FE9900] rounded-md px-4 py-2 text-white mt-4 w-full sm:w-auto"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.6, delay: 0.8 }}
             onClick={handleSubmit}
           >
@@ -260,7 +260,7 @@ function Contactus() {
         {reviews.map((review) => (
           <motion.div
             key={review.id}
-            className="flex flex-col items-center text-center w-full sm:w-[45%] md:w-[30%] px-4"
+            className="flex flex-col items-center text-center w-full sm:w-[45%] md:w-[20%] px-4"
             variants={{
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0 },
