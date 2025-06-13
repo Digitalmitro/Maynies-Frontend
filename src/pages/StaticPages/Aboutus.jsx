@@ -1,3 +1,4 @@
+
 import about_1 from "../../assets/about/about_1.svg";
 import about_2 from "../../assets/about/about_2.svg";
 import about_3 from "../../assets/about/about_3.svg";

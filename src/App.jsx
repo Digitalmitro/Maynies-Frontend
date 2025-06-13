@@ -30,6 +30,9 @@ import PaymentPlans from "./pages/Users/Payment";
 import AcademicCalendar from "./pages/Users/AcademicCalendar";
 import StudentProgress from "./pages/Users/StudentProgress";
 import StudentDemographic from "./pages/Users/StudentDemographic";
+import Signup from "./components/Signup";
+import ForgotPassword from "./components/ForgotPassword";
+import OtpVerification from "./components/OtpVerification";
 function App() {
   return (
     <BrowserRouter>
@@ -54,7 +57,10 @@ function App() {
         {/* Routes without Navbar + Footer */}
         <Route element={<PlainLayout />}>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/not-registered" element={<NotRegistered />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+          <Route path="/otp" element={<OtpVerification />} />
         </Route>
 
         <Route path="/dashboard" element={<DashboardLayout />}>
