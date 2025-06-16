@@ -13,11 +13,12 @@ import {
   FaUsers,
 } from "react-icons/fa";
 import NotRegistered from "../../components/Notregistered";
-
 function Sidebar({ onItemClick }) {
   const navigate = useNavigate();
 
-  const role = "student";
+  const role = localStorage.getItem("role");
+  console.log("role",role);
+  
 
   const employeeNavItems = [
     { label: "Links to Employee Forms", icon: <FaFileAlt />, path: "/dashboard/profile" },
@@ -42,7 +43,7 @@ function Sidebar({ onItemClick }) {
 
   // ✅ If no role is present, redirect to not registered page
   
-  const navItems = role === "employee" ? employeeNavItems : studentNavItems;
+  const navItems = role === "employer" ? employeeNavItems : studentNavItems;
 
   const handleClick = (path) => {
     if (path) navigate(path);

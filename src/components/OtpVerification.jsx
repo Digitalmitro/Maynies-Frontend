@@ -5,16 +5,37 @@ import { useNavigate } from "react-router-dom";
 
 function OtpVerification() {
   const [otp, setOtp] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const email = localStorage.getItem("email");
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    // TODO: Add OTP verification logic (backend)
-    console.log("Entered OTP:", otp);
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/verify-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ otp ,email}), 
+      });
 
-    // On success, redirect to reset password page
-    navigate("/dashboard");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "OTP verification failed");
+      }
+
+     
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -29,9 +50,7 @@ function OtpVerification() {
       </div>
 
       <div className="bg-[#EDEDED] lg:pt-28 font-semibold lg:w-[65%] w-full pb-10">
-        <h2 className="text-[25px] text-center w-full pt-4 pb-8">
-          Verify OTP
-        </h2>
+        <h2 className="text-[25px] text-center w-full pt-4 pb-8">Verify OTP</h2>
 
         <form
           onSubmit={handleSubmit}
@@ -52,11 +71,18 @@ function OtpVerification() {
             />
           </div>
 
+          {error && (
+            <p className="text-red-600 font-medium mb-2">{error}</p>
+          )}
+
           <button
             type="submit"
-            className="bg-[#FE9900]  rounded px-4 py-2 text-white w-[90%] lg:w-[50%]"
+            disabled={loading}
+            className={`${
+              loading ? "opacity-60 cursor-not-allowed" : ""
+            } bg-[#FE9900] rounded px-4 py-2 text-white w-[90%] lg:w-[50%]`}
           >
-            Verify
+            {loading ? "Verifying..." : "Verify"}
           </button>
 
           <p className="text-gray-500 font-medium pt-2">

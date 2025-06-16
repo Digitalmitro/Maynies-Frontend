@@ -7,7 +7,41 @@ import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 function Login() {
   const [enabled, setEnabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userLogin),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("role", data?.data?.role);
+        console.log("Login successful:", data);
+        navigate("/dashboard");
+      } else {
+        console.error("Login failed:", data?.message || "Unknown error");
+        alert(data?.message || "Login failed.");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUserLogin((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <div className=" flex flex-col lg:flex-row ">
       <div className="flex flex-col justify-center items-center  lg:w-[35%] lg:py-10">
@@ -22,14 +56,20 @@ function Login() {
         <h2 className="text-[25px] text-center  w-full pt-4   pb-8">
           Log into your account
         </h2>
-        <form action="" className="flex justify-center items-center flex-col ">
+        <form
+          onSubmit={handleSubmit}
+          className="flex justify-center items-center flex-col "
+        >
           <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 mb-3">
             <label htmlFor="" className="font-normal">
               Email Address
             </label>
             <input
-              type="text"
+              type="email"
+              name="email"
+              value={userLogin.email}
               className="bg-white h-[50px] rounded outline-none px-4"
+              onChange={handleInput}
             />
           </div>
           <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 relative">
@@ -39,7 +79,10 @@ function Login() {
             <div className="relative">
               <input
                 id="password"
-                type={showPassword ? "text" : "text"} // make 2nd text password later
+                name="password"
+                value={userLogin.password}
+                onChange={handleInput}
+                type={showPassword ? "text" : "text"}
                 className="bg-white h-[50px] rounded outline-none px-4 pr-12 w-full"
               />
               <button
@@ -82,13 +125,16 @@ function Login() {
             </div>
           </div>
           <button
-            type="button"
+            type="submit"
             className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]"
             onClick={() => navigate("/dashboard")}
           >
             Log In
           </button>
-          <Link className="text-[#00953B] font-normal pt-4" to={"/forgotpassword"}>
+          <Link
+            className="text-[#00953B] font-normal pt-4"
+            to={"/forgotpassword"}
+          >
             Forget Password?
           </Link>
           <p className="text-gray-500 font-medium pt-2">

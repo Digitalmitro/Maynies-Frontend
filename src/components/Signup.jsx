@@ -6,7 +6,49 @@ import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-    const navigate=useNavigate();
+  const [register, setRegister] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "",
+  });
+  const navigate = useNavigate();
+  const handleSumbit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(register),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log("Registration successful:", data);
+        localStorage.setItem("role", register?.role);
+        localStorage.setItem("email", register?.email);
+        navigate("/otp");
+      } else {
+        console.error("Registration failed:", data?.message || "Unknown error");
+        alert(data?.message || "Registration failed.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong!");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setRegister((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   return (
     <div className=" flex flex-col lg:flex-row ">
       <div className="flex flex-col justify-center items-center  lg:w-[35%] lg:py-10">
@@ -21,7 +63,10 @@ function Signup() {
         <h2 className="text-[25px] text-center  w-full pt-4   pb-8">
           Create your account
         </h2>
-        <form action="" className="flex justify-center items-center flex-col ">
+        <form
+          onSubmit={handleSumbit}
+          className="flex justify-center items-center flex-col "
+        >
           <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 mb-3">
             <label htmlFor="" className="font-normal">
               User Name
@@ -30,6 +75,7 @@ function Signup() {
               type="name"
               name="name"
               className="bg-white h-[50px] rounded outline-none px-4"
+              onChange={handleInputChange}
             />
           </div>
           <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 mb-3">
@@ -40,8 +86,30 @@ function Signup() {
               type="email"
               name="email"
               className="bg-white h-[50px] rounded outline-none px-4"
+              onChange={handleInputChange}
             />
           </div>
+
+          <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 mb-3">
+            <label htmlFor="role" className="font-normal">
+              Select Role
+            </label>
+            <select
+              name="role"
+              id="role"
+              className="bg-white h-[50px] rounded outline-none px-4"
+              onChange={handleInputChange}
+              defaultValue=""
+              required
+            >
+              <option value="" disabled className="text-gray-300">
+                select your role
+              </option>
+              <option value="student">Student</option>
+              <option value="employer">Employee</option>
+            </select>
+          </div>
+
           <div className="flex flex-col w-[90%] lg:w-[50%] h-[80px] space-y-2 relative">
             <label htmlFor="password" className="font-normal">
               Password
@@ -52,6 +120,7 @@ function Signup() {
                 name="password"
                 type={showPassword ? "text" : "text"} // make 2nd text password later
                 className="bg-white h-[50px] rounded outline-none px-4 pr-12 w-full"
+                onChange={handleInputChange}
               />
               <button
                 type="button"
@@ -68,9 +137,9 @@ function Signup() {
             </div>
           </div>
           <button
-            type="button"
+            type="submit"
             className="bg-[#FE9900] mt-6 rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]"
-            onClick={() => navigate("/otp")}
+           
           >
             Sign Up
           </button>
