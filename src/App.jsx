@@ -62,7 +62,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/otp" element={<OtpVerification />} />
         </Route>
-
+        
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashBoard />} />
           <Route path="profile" element={<EmployeeProfile />} />
