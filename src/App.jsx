@@ -49,7 +49,7 @@ function App() {
           <Route path="/employee-portal" element={<Portalpage />} />
           <Route path="/student-portal" element={<Studpotal />} />
           <Route path="/marketplace" element={<AllMarketplace />} />
-          <Route path="/SingleMarketplace" element={<SingleMarketplace />} />
+          <Route path="/course/:slug" element={<SingleMarketplace />} />
           <Route path="/jobs" element={<AllJobs />} />
           <Route path="/job" element={<Job />} />
         </Route>

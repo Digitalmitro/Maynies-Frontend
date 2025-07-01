@@ -18,7 +18,7 @@ function AllJobs() {
   const fetchJobs = async (page = 1) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/jobs?page=${page}&limit=${pagination.limit}`
+        `${import.meta.env.VITE_BACKEND_API}/api/jobs?page=${page}&limit=${pagination.limit}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch jobs");
