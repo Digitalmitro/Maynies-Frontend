@@ -24,7 +24,7 @@ function Login() {
       });
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem("role", data?.data?.role);
+        localStorage.setItem("role", data?.data?.data?.role);
         console.log("Login successful:", data);
         navigate("/dashboard");
       } else {

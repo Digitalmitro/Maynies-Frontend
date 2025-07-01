@@ -1,19 +1,45 @@
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import banner from "../../assets/marketbanner.png";
+import axios from "axios";
 
 function CourseDetailsPage() {
   const { slug } = useParams();
   const [course, setCourse] = useState(null);
   const [relatedCourses, setRelatedCourses] = useState([]);
+  const navigate = useNavigate();
+  const addToCart = async (courseId) => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_API}/api/courses/cart`,
+        { courseId }, // ✅ Axios automatically stringifies this
+        {
+          withCredentials: true, // ✅ Required to send cookies
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("Course ID:", courseId);
+      console.log("Course added to cart:", res.data);
+      alert("Course added to cart successfully!");
+      navigate("/cart");
+    } catch (error) {
+      console.error(
+        "Error adding course to cart:",
+        error.response?.data || error.message
+      );
+      alert("Failed to add course to cart");
+    }
+  };
 
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/courses/${slug}`,{
+        const res = await fetch(`http://localhost:3000/api/courses/${slug}`, {
           credentials: "include",
-          
         });
         const data = await res.json();
         if (res.ok) {
@@ -32,7 +58,11 @@ function CourseDetailsPage() {
   }, [slug]);
 
   if (!course) {
-    return <p className="text-center mt-20 text-gray-600">Loading course details...</p>;
+    return (
+      <p className="text-center mt-20 text-gray-600">
+        Loading course details...
+      </p>
+    );
   }
 
   return (
@@ -75,7 +105,9 @@ function CourseDetailsPage() {
           <div className="w-full lg:w-[40%] p-6 border-t lg:border-t-0 lg:border-l border-gray-300 bg-white flex flex-col justify-between">
             <div>
               <h2 className="text-2xl font-bold mb-2">{course.title}</h2>
-              <p className="text-sm text-gray-500 mb-1">{course.instructor_name}</p>
+              <p className="text-sm text-gray-500 mb-1">
+                {course.instructor_name}
+              </p>
               <p className="text-sm mt-4">{course.description}</p>
               <ul className="list-disc pl-5 text-sm mt-4 space-y-1">
                 <li>Level: {course.level}</li>
@@ -90,8 +122,19 @@ function CourseDetailsPage() {
                   ₹{course.price}
                 </span>
               </p>
-              <button className="bg-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold">
-                Enroll Now
+              <button
+                className="bg-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
+                onClick={() => {
+                  const role = localStorage.getItem("role");
+                  if (role !== "student") {
+                    alert("Only loggedIn students can buy courses.");
+                    return;
+                  }
+
+                  addToCart(course?._id);
+                }}
+              >
+                Buy Now
               </button>
             </div>
           </div>
@@ -102,7 +145,10 @@ function CourseDetailsPage() {
           <h3 className="text-xl font-bold mb-6">More Like This</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedCourses.map((item, index) => (
-              <div key={index} className="border border-gray-300 rounded overflow-hidden shadow">
+              <div
+                key={index}
+                className="border border-gray-300 rounded overflow-hidden shadow"
+              >
                 <img
                   src={item.thumbnail_url}
                   alt={item.title}
@@ -113,7 +159,9 @@ function CourseDetailsPage() {
                   <p className="text-sm text-gray-600 mb-2">
                     {item.description.slice(0, 80)}...
                   </p>
-                  <p className="text-orange-600 font-semibold">₹{item.discount_price}</p>
+                  <p className="text-orange-600 font-semibold">
+                    ₹{item.discount_price}
+                  </p>
                   <button className="bg-yellow-400 text-black mt-3 py-1 px-4 rounded text-sm">
                     View Course
                   </button>
