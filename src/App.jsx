@@ -33,6 +33,8 @@ import StudentDemographic from "./pages/Users/StudentDemographic";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
 import OtpVerification from "./components/OtpVerification";
+import Cart from "./pages/Cart";
+import JobApplyForm from "./pages/career/JobApplyForm";
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +54,8 @@ function App() {
           <Route path="/course/:slug" element={<SingleMarketplace />} />
           <Route path="/jobs" element={<AllJobs />} />
           <Route path="/job" element={<Job />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/apply/:slug" element={<JobApplyForm />} />
         </Route>
 
         {/* Routes without Navbar + Footer */}

@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import banner from "../../assets/marketbanner.png";
-import axios from "axios";
 
 function CourseDetailsPage() {
   const { slug } = useParams();
@@ -11,26 +10,28 @@ function CourseDetailsPage() {
   const navigate = useNavigate();
   const addToCart = async (courseId) => {
     try {
-      const res = await axios.post(
+      const res = await fetch(
         `${import.meta.env.VITE_BACKEND_API}/api/courses/cart`,
-        { courseId }, // ✅ Axios automatically stringifies this
         {
-          withCredentials: true, // ✅ Required to send cookies
+          method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ course_id: courseId }),
         }
       );
-
-      console.log("Course ID:", courseId);
-      console.log("Course added to cart:", res.data);
-      alert("Course added to cart successfully!");
-      navigate("/cart");
+      console.log(courseId);
+      if (res.ok) {
+        const data = await res.json();
+        console.log("Course added to cart:", data);
+        alert("Course added to cart successfully!");
+        navigate("/cart");
+      } else {
+        throw new Error("Failed to add course to cart");
+      }
     } catch (error) {
-      console.error(
-        "Error adding course to cart:",
-        error.response?.data || error.message
-      );
+      console.error("Error adding course to cart:", error);
       alert("Failed to add course to cart");
     }
   };
@@ -44,7 +45,6 @@ function CourseDetailsPage() {
         const data = await res.json();
         if (res.ok) {
           setCourse(data?.data);
-          console.log("Fetched course:", data?.data);
           setRelatedCourses(data.data.relatedCourses || []);
         } else {
           throw new Error("Course not found");

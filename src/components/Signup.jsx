@@ -19,6 +19,7 @@ function Signup() {
     try {
       const res = await fetch("http://localhost:3000/api/auth/register", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
