@@ -67,25 +67,25 @@ function CartPage() {
                 className="flex border border-gray-300 rounded-lg overflow-hidden shadow"
               >
                 <img
-                  src={course.thumbnail_url}
-                  alt={course.title}
+                  src={course?.thumbnail_url}
+                  alt={course?.title}
                   className="w-32 h-32 object-cover"
                 />
                 <div className="p-4 flex-1">
                   <h3 className="text-lg font-semibold text-gray-800">
-                    {course.title}
+                    {course?.title}
                   </h3>
                   <p className="text-sm text-gray-500">
-                    Instructor: {course.instructor_name}
+                    Instructor: {course?.instructor_name}
                   </p>
-                  <p className="text-sm text-gray-500">Level: {course.level}</p>
+                  <p className="text-sm text-gray-500">Level: {course?.level}</p>
                 </div>
                 <div className="p-4 flex flex-col justify-between items-end">
                   <p className="text-orange-600 font-bold text-lg">
-                    ₹{course.discount_price}
+                    ₹{course?.discount_price}
                   </p>
                   <p className="text-xs line-through text-red-400">
-                    ₹{course.price}
+                    ₹{course?.price}
                   </p>
                   <button
                     className="mt-2 text-sm text-red-500 hover:underline"

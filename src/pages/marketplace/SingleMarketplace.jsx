@@ -21,14 +21,15 @@ function CourseDetailsPage() {
           body: JSON.stringify({ course_id: courseId }),
         }
       );
-      console.log(courseId);
-      if (res.ok) {
+      
         const data = await res.json();
+        if (res.ok) {
         console.log("Course added to cart:", data);
         alert("Course added to cart successfully!");
         navigate("/cart");
       } else {
-        throw new Error("Failed to add course to cart");
+        
+        alert(data.message)
       }
     } catch (error) {
       console.error("Error adding course to cart:", error);
@@ -39,7 +40,7 @@ function CourseDetailsPage() {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/courses/${slug}`, {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/courses/${slug}`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -122,8 +123,27 @@ function CourseDetailsPage() {
                   ₹{course.price}
                 </span>
               </p>
+              <div className="flex flex-col">
               <button
                 className="bg-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
+                onClick={() => {
+                  const role = localStorage.getItem("role");
+                  if (role !== "student") {
+                    alert("Only loggedIn students can buy courses.");
+                    return;
+                  }
+                  if (course?.isEnrolled === true) {
+                    alert("You are already enrolled in this course.");
+                    return;
+                  }
+                  
+                  
+                }}
+              >
+                Buy Now
+              </button>
+              <button
+                className="border-2 border-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
                 onClick={() => {
                   const role = localStorage.getItem("role");
                   if (role !== "student") {
@@ -134,14 +154,15 @@ function CourseDetailsPage() {
                   addToCart(course?._id);
                 }}
               >
-                Buy Now
+                Add to cart
               </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Related Courses */}
-        <div className="mt-10">
+        {/* <div className="mt-10">
           <h3 className="text-xl font-bold mb-6">More Like This</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedCourses.map((item, index) => (
@@ -169,7 +190,7 @@ function CourseDetailsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

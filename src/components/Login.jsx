@@ -128,7 +128,6 @@ function Login() {
           <button
             type="submit"
             className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]"
-            onClick={() => navigate("/dashboard")}
           >
             Log In
           </button>
