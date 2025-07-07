@@ -15,7 +15,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/auth/login`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -26,8 +26,8 @@ function Login() {
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem("role", data?.data?.data?.role);
-        console.log("Login successful:", data);
-        navigate("/dashboard");
+       
+        navigate("/");
       } else {
         console.error("Login failed:", data?.message || "Unknown error");
         alert(data?.message || "Login failed.");

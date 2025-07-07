@@ -123,6 +123,7 @@ const dummyTeam = [
   },
 ];
 function Content() {
+ 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
   return (

@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-
+  const role = localStorage.getItem("role");
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -58,11 +58,26 @@ function Navbar() {
                 Contact Us
               </Link>
             </li>
-            <li>
-              <Link to="/login" className="hover:text-[#00953B]">
-                Sign Up / Log in
-              </Link>
-            </li>
+            {role ? (
+              <>
+                <li>
+                  <Link to="/dashboard" className="hover:text-[#00953B]">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/cart" className="hover:text-[#00953B]">
+                    Cart
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/login" className="hover:text-[#00953B]">
+                  Sign Up / Log in
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <div className="lg:hidden">
