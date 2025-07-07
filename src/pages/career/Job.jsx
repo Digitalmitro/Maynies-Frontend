@@ -9,7 +9,7 @@ function Job() {
 
   const fetchJobsById = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/jobs/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/jobs/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch job details");
       }
