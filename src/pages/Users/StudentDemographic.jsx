@@ -1,25 +1,136 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function StudentDemographic() {
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    birthDate: "",
+    country: "",
+    mothers_name: "",
+    gender: "",
+    race: "",
+    state: "",
+    city: "",
+    avatarUrl: "",
+  });
+
+  const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    const fetchDemographics = async () => {
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_API}/api/student/demographics`,
+          {
+            credentials: "include",
+          }
+        );
+        if (!res.ok) throw new Error("Failed to fetch demographics");
+
+        const data = await res.json();
+        setFormData(data?.data);
+          console.log("Fetched demographics:", data?.data);
+        console.log(data?.data);
+        setPreview(data.avatarUrl || null);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    fetchDemographics();
+  }, []);
+
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submitting formData:", formData);
+    const preparePayload = (data) => ({
+      firstName: data.first_name,
+      lastName: data.last_name,
+      birthDate: data.birthDate,
+      country: data.country,
+      mothers_name: data.mothers_name,
+      gender: data.gender,
+      race: data.race,
+      state: data.state,
+      city: data.city,
+      avatarUrl: data.avatarUrl,
+    });
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/student/demographics`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(preparePayload(formData)),
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to update profile");
+
+      const data = await res.json();
+      console.log("Updated:", data);
+      alert("Profile updated successfully");
+    } catch (err) {
+      console.error("PATCH error:", err);
+      alert("Failed to update profile");
+    }
+  };
+
   return (
-    <div className=" mx-auto p-6 bg-white rounded-lg ">
+    <div className="mx-auto md:p-6 p-1 bg-white rounded-lg">
       {/* File Upload Section */}
       <div className="flex items-center space-x-4">
-          <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center">
+        <div className="w-14 h-14 bg-gray-100 rounded-full overflow-hidden flex items-center justify-center">
+          {preview ? (
+            <img
+              src={preview}
+              alt="Avatar"
+              className="object-cover w-full h-full"
+            />
+          ) : (
             <span className="text-2xl">👤</span>
-          </div>
-          <div>
-            <p className="text-gray-600">
-              Drop your file here or{" "}
-              <span className="text-green-600 font-medium cursor-pointer">
-                Select a file
-              </span>
-            </p>
-            <p className="text-xs text-gray-400">
-              Only jpg, jpeg & png are allowed up to 3mb in size.
-            </p>
-          </div>
+          )}
         </div>
+        <div>
+          <label className="text-gray-600 cursor-pointer">
+            Drop your file here or{" "}
+            <span className="text-green-600 font-medium underline">
+              Select a file
+            </span>
+            <input
+              type="file"
+              accept="image/jpeg, image/jpg, image/png"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                if (
+                  file &&
+                  file.size <= 3 * 1024 * 1024 &&
+                  /image\/(jpeg|png|jpg)/.test(file.type)
+                ) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => setPreview(reader.result);
+                  reader.readAsDataURL(file);
+                } else {
+                  alert("Only JPG, JPEG & PNG under 3MB allowed.");
+                }
+              }}
+              className="hidden"
+            />
+          </label>
+          <p className="text-xs text-gray-400">
+            Only jpg, jpeg & png are allowed up to 3MB in size.
+          </p>
+        </div>
+      </div>
 
       {/* Form Title */}
       <h2 className="text-xl font-semibold mt-10 text-gray-800 mb-4">
@@ -28,17 +139,38 @@ function StudentDemographic() {
       <p className="text-sm text-gray-600 mb-6">Fields with * are mandatory.</p>
 
       {/* Form Fields */}
-      <div className="space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className=" space-y-6 mx-auto md:p-6 p-2 bg-white rounded-lg"
+      >
         {/* Full Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Full Name *
-          </label>
-          <input
-            type="text"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter your full name"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              First Name *
+            </label>
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={(e) => handleChange("first_name", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
+              placeholder="Enter your first name"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Last Name *
+            </label>
+            <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={(e) => handleChange("last_name", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
+              placeholder="Enter your last name"
+            />
+          </div>
         </div>
 
         {/* Row 1 */}
@@ -49,18 +181,24 @@ function StudentDemographic() {
             </label>
             <input
               type="date"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={formData.birthDate}
+              onChange={(e) => handleChange("birthDate", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Country *
             </label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <select
+              value={formData.country}
+              onChange={(e) => handleChange("country", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
+            >
               <option value="">Select country</option>
+              <option value="India">India</option>
               <option value="US">United States</option>
               <option value="UK">United Kingdom</option>
-              {/* Add more countries as needed */}
             </select>
           </div>
         </div>
@@ -72,7 +210,9 @@ function StudentDemographic() {
           </label>
           <input
             type="text"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            value={formData.mothers_name}
+            onChange={(e) => handleChange("mothers_name", e.target.value)}
+            className="w-full px-4 py-2 border border-gray-300 rounded-md "
             placeholder="Enter mother's name"
           />
         </div>
@@ -83,11 +223,15 @@ function StudentDemographic() {
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Gender *
             </label>
-            <select className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <select
+              value={formData.gender}
+              onChange={(e) => handleChange("gender", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
+            >
               <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div>
@@ -96,7 +240,9 @@ function StudentDemographic() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={formData.race}
+              onChange={(e) => handleChange("race", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
               placeholder="Enter color or race"
             />
           </div>
@@ -110,7 +256,9 @@ function StudentDemographic() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={formData.state}
+              onChange={(e) => handleChange("state", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
               placeholder="Enter state"
             />
           </div>
@@ -120,12 +268,15 @@ function StudentDemographic() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={formData.city}
+              onChange={(e) => handleChange("city", e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md "
               placeholder="Enter city"
             />
           </div>
         </div>
 
+        {/* Buttons */}
         <div className="md:col-span-2 flex justify-end space-x-4 mt-4">
           <button
             type="button"
@@ -140,7 +291,7 @@ function StudentDemographic() {
             Submit
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

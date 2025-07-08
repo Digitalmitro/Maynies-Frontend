@@ -21,9 +21,7 @@ function Demographics() {
             </p>
           </div>
         </div>
-        <span className="text-orange-500 text-2xl">
-          <FaBell />
-        </span>
+       
       </div>
 
       {/* Title */}
