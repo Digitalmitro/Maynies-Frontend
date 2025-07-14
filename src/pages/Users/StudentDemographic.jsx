@@ -26,19 +26,56 @@ function StudentDemographic() {
           }
         );
         if (!res.ok) throw new Error("Failed to fetch demographics");
-
+  
         const data = await res.json();
         setFormData(data?.data);
-          console.log("Fetched demographics:", data?.data);
-        console.log(data?.data);
-        setPreview(data.avatarUrl || null);
+        console.log(data?.data)
+        const avatarUrl = data?.data?.avatarUrl;
+        setPreview(
+          avatarUrl 
+            ? avatarUrl.startsWith('http') 
+              ? avatarUrl 
+              : `${import.meta.env.VITE_BACKEND_API}${avatarUrl}`
+            : null
+        );
       } catch (error) {
         console.error("Fetch error:", error);
       }
     };
-
+  
     fetchDemographics();
   }, []);
+
+  const handleImageUpload = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+  
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/upload/student_profile`,
+        {
+          method: "POST",
+          credentials: "include",
+          body: formData,
+        }
+      );
+  
+      if (!res.ok) throw new Error("Image upload failed");
+  
+      const data = await res.json();
+      console.log("Image uploaded:", data?.file_url);
+      
+      // Construct full URL by combining base URL and file_url
+      const fullImageUrl = `${import.meta.env.VITE_BACKEND_API}${data.file_url}`;
+      console.log("Image uploaded:", fullImageUrl);
+      return fullImageUrl;
+      
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Failed to upload image");
+      return null;
+    }
+  };
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({
@@ -46,9 +83,9 @@ function StudentDemographic() {
       [field]: value,
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting formData:", formData);
     const preparePayload = (data) => ({
       firstName: data.first_name,
       lastName: data.last_name,
@@ -61,6 +98,7 @@ function StudentDemographic() {
       city: data.city,
       avatarUrl: data.avatarUrl,
     });
+
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_API}/api/student/demographics`,
@@ -109,16 +147,22 @@ function StudentDemographic() {
             <input
               type="file"
               accept="image/jpeg, image/jpg, image/png"
-              onChange={(e) => {
+              onChange={async (e) => {
                 const file = e.target.files[0];
-                if (
-                  file &&
-                  file.size <= 3 * 1024 * 1024 &&
-                  /image\/(jpeg|png|jpg)/.test(file.type)
-                ) {
+                if (file && file.size <= 3 * 1024 * 1024 && /image\/(jpeg|png|jpg)/.test(file.type)) {
+                  // Create preview
                   const reader = new FileReader();
                   reader.onloadend = () => setPreview(reader.result);
                   reader.readAsDataURL(file);
+                  
+                  // Upload image and update form data with full URL
+                  const imageUrl = await handleImageUpload(file);
+                  if (imageUrl) {
+                    setFormData(prev => ({
+                      ...prev,
+                      avatarUrl: imageUrl
+                    }));
+                  }
                 } else {
                   alert("Only JPG, JPEG & PNG under 3MB allowed.");
                 }
