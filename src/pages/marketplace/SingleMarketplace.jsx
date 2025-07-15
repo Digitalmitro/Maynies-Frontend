@@ -1,38 +1,40 @@
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+// import { useStripe } from '@stripe/react-stripe-js'
 import banner from "../../assets/marketbanner.png";
+import axios from "axios";
+import { stripePromise } from "../../main";
 
 function CourseDetailsPage() {
   const { slug } = useParams();
   const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(false)
+
   const [relatedCourses, setRelatedCourses] = useState([]);
   const navigate = useNavigate();
   const addToCart = async (courseId) => {
     try {
-      const res = await fetch(
+      const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/api/courses/cart`,
+        { course_id: courseId }, // ✅ Axios automatically stringifies this
         {
-          method: "POST",
-          credentials: "include",
+          withCredentials: true, // ✅ Required to send cookies
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ course_id: courseId }),
         }
       );
-      
-        const data = await res.json();
-        if (res.ok) {
-        console.log("Course added to cart:", data);
-        alert("Course added to cart successfully!");
-        navigate("/cart");
-      } else {
-        
-        alert(data.message)
-      }
+
+      console.log("Course ID:", courseId);
+      console.log("Course added to cart:", res.data);
+      alert("Course added to cart successfully!");
+      navigate("/cart");
     } catch (error) {
-      console.error("Error adding course to cart:", error);
+      console.error(
+        "Error adding course to cart:",
+        error.response?.data || error.message
+      );
       alert("Failed to add course to cart");
     }
   };
@@ -46,6 +48,7 @@ function CourseDetailsPage() {
         const data = await res.json();
         if (res.ok) {
           setCourse(data?.data);
+          console.log("Fetched course:", data?.data);
           setRelatedCourses(data.data.relatedCourses || []);
         } else {
           throw new Error("Course not found");
@@ -64,6 +67,29 @@ function CourseDetailsPage() {
         Loading course details...
       </p>
     );
+  }
+
+  const handleClick = async (courseId) => {
+    const resp = await fetch(`http://localhost:3000/api/payment/checkout-session`, {
+      method: 'POST',
+      credentials: 'include',            // cookies bhejne ke liye
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ course_id: courseId })
+    })
+    const { url, sessionId } = await resp.json()
+
+    const stripe = await stripePromise;
+
+    if (stripe) {
+      // Option A: stripe.js
+      await stripe.redirectToCheckout({ sessionId });
+    } else {
+      // Option B: direct URL fallback
+      window.location.href = url;
+    }
+
+
+    setLoading(false)
   }
 
   return (
@@ -123,46 +149,41 @@ function CourseDetailsPage() {
                   ₹{course.price}
                 </span>
               </p>
-              <div className="flex flex-col">
-              <button
-                className="bg-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
-                onClick={() => {
-                  const role = localStorage.getItem("role");
-                  if (role !== "student") {
-                    alert("Only loggedIn students can buy courses.");
-                    return;
-                  }
-                  if (course?.isEnrolled === true) {
-                    alert("You are already enrolled in this course.");
-                    return;
-                  }
-                  
-                  
-                }}
-              >
-                Buy Now
-              </button>
-              <button
-                className="border-2 border-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
-                onClick={() => {
-                  const role = localStorage.getItem("role");
-                  if (role !== "student") {
-                    alert("Only loggedIn students can buy courses.");
-                    return;
-                  }
+              <div className="flex flex-col space-y-2 mt-4">
 
-                  addToCart(course?._id);
-                }}
-              >
-                Add to cart
-              </button>
+                <button
+                  className="bg-yellow-400 text-black mt-4 py-2 px-6 rounded font-semibold"
+                  onClick={() => {
+                    console.log("buy now")
+                    handleClick(course?._id);
+                  }}
+                  disabled={loading}
+                >
+                  {loading ? 'Please wait…' : 'Buy Now'}
+                </button>
+                <button
+                  className="bg-trasparent border-yellow-500 border-2 text-yellow-500 mt-4 py-2 px-6 rounded font-semibold"
+                  onClick={() => {
+                    const role = localStorage.getItem("role");
+                    if (role !== "student") {
+                      alert("Only loggedIn students can buy courses.");
+                      return;
+                    }
+
+                    addToCart(course?._id);
+                  }}
+                >
+                  Add to cart
+                </button>
+
               </div>
+
             </div>
           </div>
         </div>
 
         {/* Related Courses */}
-        {/* <div className="mt-10">
+        <div className="mt-10">
           <h3 className="text-xl font-bold mb-6">More Like This</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {relatedCourses.map((item, index) => (
@@ -190,7 +211,7 @@ function CourseDetailsPage() {
               </div>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
