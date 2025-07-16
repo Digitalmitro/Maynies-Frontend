@@ -30,7 +30,8 @@ function StudentDemographic() {
         const data = await res.json();
         setFormData(data?.data);
         console.log(data?.data)
-        const avatarUrl = data?.data?.avatarUrl;
+        const avatarUrl = data?.data?.avatar_url;
+        
         setPreview(
           avatarUrl 
             ? avatarUrl.startsWith('http') 
@@ -300,7 +301,7 @@ function StudentDemographic() {
             </label>
             <input
               type="text"
-              value={formData.state}
+              value={formData?.address?.state}
               onChange={(e) => handleChange("state", e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md "
               placeholder="Enter state"
@@ -312,7 +313,7 @@ function StudentDemographic() {
             </label>
             <input
               type="text"
-              value={formData.city}
+              value={formData?.address?.city}
               onChange={(e) => handleChange("city", e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md "
               placeholder="Enter city"

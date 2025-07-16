@@ -78,16 +78,18 @@ const AcademicCalendar = () => {
       </h2>
 
       {/* Calendar Box */}
-      <div className="w-full flex justify-center flex-col max-w-md mx-auto bg-white  overflow-hidden mb-6">
+      <div className="w-full flex  justify-center flex-col max-w-md mx-auto bg-white  overflow-hidden mb-6">
+        <div className="flex  justify-center ">
         <Calendar
           onChange={handleDateClick}
           tileContent={getTileContent}
           className="border-none w-full p-2"
         />
+        </div>
 
         {selectedDate && (
-          <div className=" p-4 ">
-            <h3 className="font-medium text-lg text-gray-800 mb-3">
+          <div className=" p-4 flex  justify-center flex-col items-center">
+            <h3 className="font-medium  text-lg text-gray-800 mb-3">
               Events on <span className="text-blue-600">{selectedDate}</span>
             </h3>
 
