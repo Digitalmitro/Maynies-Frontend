@@ -35,12 +35,14 @@ import ForgotPassword from "./components/ForgotPassword";
 import OtpVerification from "./components/OtpVerification";
 import Cart from "./pages/Cart";
 import JobApplyForm from "./pages/career/JobApplyForm";
+import SuccessPage from "./pages/SuccessPage";
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         {/* Routes with Navbar + Footer */}
+        <Route path="/success" element={<SuccessPage />} />
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<Aboutus />} />
@@ -66,7 +68,7 @@ function App() {
           <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/otp" element={<OtpVerification />} />
         </Route>
-        
+
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<DashBoard />} />
           <Route path="profile" element={<EmployeeProfile />} />
@@ -78,7 +80,7 @@ function App() {
           <Route path="demographics" element={<Demographics />} />
           <Route path="admission" element={<AdmissionForm />} />
           <Route path="payment" element={<PaymentPlans />} />
-          <Route path="progress" element={<StudentProgress/>} />
+          <Route path="progress" element={<StudentProgress />} />
           <Route path="calender" element={<AcademicCalendar />} />
           <Route path="studentDemographic" element={<StudentDemographic />} />
         </Route>
