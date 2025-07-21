@@ -72,8 +72,8 @@ function Aboutus() {
       {/* Banner Section */}
       <div className="relative w-full">
         <motion.img
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1}}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 1 }}
           src={banner}
