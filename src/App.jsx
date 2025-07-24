@@ -36,6 +36,7 @@ import OtpVerification from "./components/OtpVerification";
 import Cart from "./pages/Cart";
 import JobApplyForm from "./pages/career/JobApplyForm";
 import SuccessPage from "./pages/SuccessPage";
+import TemplateFormById from "./pages/Users/TemplateFormById";
 function App() {
   return (
     <BrowserRouter>
@@ -77,11 +78,12 @@ function App() {
           <Route path="privacy" element={<Privacy />} />
           <Route path="Payroll" element={<Payroll />} />
           <Route path="viewPayroll" element={<ViewPayroll />} />
-          <Route path="demographics" element={<Demographics />} />
+          <Route path="employeeForms" element={<Demographics />} /> {/* Employee Forms */}
           <Route path="admission" element={<AdmissionForm />} />
           <Route path="payment" element={<PaymentPlans />} />
           <Route path="progress" element={<StudentProgress />} />
           <Route path="calender" element={<AcademicCalendar />} />
+          <Route path="users/form/:id" element={<TemplateFormById />} />
           <Route path="studentDemographic" element={<StudentDemographic />} />
         </Route>
       </Routes>

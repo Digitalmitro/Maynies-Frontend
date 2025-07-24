@@ -21,15 +21,14 @@ function Sidebar({ onItemClick }) {
   
 
   const employeeNavItems = [
-    { label: "Links to Employee Forms", icon: <FaFileAlt />, path: "/dashboard/profile" },
+    { label: "Links to Employee Forms", icon: <FaFileAlt />, path: "/dashboard/employeeForms" },
     { label: "Loan Requests", icon: <FaMoneyCheckAlt />, path: "/dashboard/kycFrom" },
-    { label: "Vacation Time", icon: <FaUmbrellaBeach />, path: "/dashboard/vacation" },
-    { label: "Sick Time", icon: <FaFirstAid /> },
+    { label: "Leave Request", icon: <FaUmbrellaBeach />, path: "/dashboard/vacation" },
     { label: "Policies", icon: <FaBook />, path: "/dashboard/privacy" },
     { label: "Payroll", icon: <FaFileInvoiceDollar />, path: "/dashboard/payroll" },
     { label: "Attendance", icon: <FaUserCheck /> },
     { label: "Training", icon: <FaChalkboardTeacher /> },
-    { label: "Demographics", icon: <FaUsers />, path: "/dashboard/demographics" },
+    { label: "Demographics", icon: <FaUsers />, path: "/dashboard/profile" },
   ];
 
   const studentNavItems = [
