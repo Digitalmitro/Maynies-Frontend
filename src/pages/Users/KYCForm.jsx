@@ -1,88 +1,132 @@
-import { FaBell, FaInfoCircle } from "react-icons/fa";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const KYCForm = () => {
+  const [formData, setFormData] = useState({
+    amount: "",
+    durationMonths: "",
+    reason: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/employer/loan`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({
+            amount: Number(formData.amount),
+            durationMonths: Number(formData.durationMonths),
+            reason: formData.reason,
+          }),
+        }
+      );
+      if (!response.ok) throw new Error("Submission failed");
+      alert("Loan application submitted successfully!");
+      setFormData({ amount: "", durationMonths: "", reason: "" });
+    } catch (err) {
+      alert("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-xl relative">
-      {/* Bell Icon */}
-      <div className="absolute top-4 right-4 text-orange-500">
-        <FaBell />
-      </div>
-
-      {/* Price Range */}
-      <div className="mb-6">
-        <h2 className="text-center font-semibold text-lg mb-2">Price Range</h2>
-        <div className="flex justify-between text-sm text-gray-600 px-2 mb-1">
-          <span>$500</span>
-          <span>$25000</span>
-          <span>$50000</span>
-        </div>
-        <input
-          type="range"
-          min={500}
-          max={50000}
-          defaultValue={25000}
-          className="w-full accent-orange-500"
-        />
-        <div className="text-center mt-2">
-          <span className="font-medium">Amount</span>{" "}
-          <input
-            type="text"
-            value="$25000"
-            readOnly
-            className="border rounded-md px-2 py-1 w-32 text-center"
-          />
-        </div>
-      </div>
-
-      {/* Personal Info */}
-      <div className="mb-6">
-        <h3 className="font-semibold text-md mb-2">Personal Information</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 ">
-          <input placeholder="Name" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Surname" className="bg-gray-100 p-2 rounded col-span-2 sm:col-span-1 outline-blue-100" />
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <input placeholder="ID/Password Number" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <div className="flex gap-4">
-            <input placeholder="Phone" className="bg-gray-100 p-2 rounded flex-1 outline-blue-100" />
-            <input placeholder="DOB" className="bg-gray-100 p-2 rounded w-1/2 outline-blue-100" />
-          </div>
-          <input placeholder="Email" className="bg-gray-100 p-2 rounded outline-blue-100" />
-        </div>
-        <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-          <FaInfoCircle className="text-blue-500" /> Your email will be used for the app’s login.
-        </p>
-      </div>
-
-      {/* KYC Details */}
-      <div className="mb-6">
-        <h3 className="font-semibold text-md mb-2">KYC Details</h3>
-        <p className="text-sm text-gray-600 mb-4">
-          Enter your details as they appear on your identification document.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <input placeholder="Full Name" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Phone No." className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Nation" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Aadhar No." className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Tin Number" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Address" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="Postal Code" className="bg-gray-100 p-2 rounded outline-blue-100" />
-          <input placeholder="City" className="bg-gray-100 p-2 rounded outline-blue-100" />
-        </div>
-      </div>
-
-      {/* Submit Button */}
-      <div className="text-center mt-6">
-        <p className="text-sm text-gray-500 mb-2">
-          Trodion gives you 100% insurance...{" "}
-          <span className="text-orange-500 underline cursor-pointer">See why it benefits?</span>
-        </p>
-        <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md">
-          Submit
+    <div className="max-w-xl mx-auto bg-white text-[#101C26] p-6  mt-4">
+      <h2 className="text-2xl font-semibold text-orange-600 mb-6 text-center">
+        Loan Request KYC Form
+      </h2>
+      <div className="mb-6 text-right">
+        <button
+          type="button"
+          onClick={() => navigate("/dashboard/my-loans")}
+          className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-medium hover:bg-orange-200 transition"
+        >
+          📄 View My Loans
         </button>
       </div>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Amount */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Loan Amount (₹)
+          </label>
+          <input
+            type="number"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+            placeholder="Enter amount"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required
+          />
+        </div>
+
+        {/* Duration */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Duration (in Months)
+          </label>
+          <input
+            type="number"
+            name="durationMonths"
+            value={formData.durationMonths}
+            onChange={handleChange}
+            placeholder="Enter duration"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required
+          />
+        </div>
+
+        {/* Reason */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Purpose / Reason
+          </label>
+          <textarea
+            name="reason"
+            value={formData.reason}
+            onChange={handleChange}
+            rows={4}
+            placeholder="Tell us why you need this loan..."
+            className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-orange-400"
+            required
+          ></textarea>
+        </div>
+
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full py-2 rounded-md font-medium text-white transition ${
+            loading
+              ? "bg-orange-300 cursor-not-allowed"
+              : "bg-orange-500 hover:bg-orange-600"
+          }`}
+        >
+          {loading ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="w-4 h-4 border-2 border-white border-t-orange-600 rounded-full animate-spin"></div>
+              Submitting...
+            </div>
+          ) : (
+            "Submit Application"
+          )}
+        </button>
+      </form>
     </div>
   );
 };

@@ -37,6 +37,8 @@ import Cart from "./pages/Cart";
 import JobApplyForm from "./pages/career/JobApplyForm";
 import SuccessPage from "./pages/SuccessPage";
 import TemplateFormById from "./pages/Users/TemplateFormById";
+import LoanList from "./pages/Users/LoanList";
+import LoanDetails from "./pages/Users/LoanDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -85,6 +87,8 @@ function App() {
           <Route path="calender" element={<AcademicCalendar />} />
           <Route path="users/form/:id" element={<TemplateFormById />} />
           <Route path="studentDemographic" element={<StudentDemographic />} />
+          <Route path="my-loans" element={<LoanList/>} />
+          <Route path="loanDetails" element={<LoanDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

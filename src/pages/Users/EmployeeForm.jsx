@@ -64,11 +64,13 @@ const EmployeeProfile = () => {
 
       const data = await res.json();
       if (data?.file_url) {
+        console.log(data?.file_url);
         setEmployee((prev) => ({
           ...prev,
           avatar_url: `${import.meta.env.VITE_BACKEND_API}${data.file_url}`,
         }));
         alert("Profile image uploaded successfully!");
+        
       } else {
         alert("Upload failed: " + data.message || "Unknown error");
       }
