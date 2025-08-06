@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-
 import {
   FaClock,
   FaCheckCircle,
@@ -11,6 +10,7 @@ function EmployeeAttendance() {
   const [hasClockedIn, setHasClockedIn] = useState(false);
   const [isLate, setIsLate] = useState(false);
   const [lateReason, setLateReason] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [clockInTime, setClockInTime] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [clockInData, setClockInData] = useState({});
