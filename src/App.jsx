@@ -39,6 +39,7 @@ import SuccessPage from "./pages/SuccessPage";
 import TemplateFormById from "./pages/Users/TemplateFormById";
 import LoanList from "./pages/Users/LoanList";
 import LoanDetails from "./pages/Users/LoanDetails";
+import EmployeeAttendance from "./pages/Users/EmployeeAttendance";
 function App() {
   return (
     <BrowserRouter>
@@ -85,6 +86,7 @@ function App() {
           <Route path="payment" element={<PaymentPlans />} />
           <Route path="progress" element={<StudentProgress />} />
           <Route path="calender" element={<AcademicCalendar />} />
+          <Route path="attendance" element={<EmployeeAttendance />} />
           <Route path="users/form/:id" element={<TemplateFormById />} />
           <Route path="studentDemographic" element={<StudentDemographic />} />
           <Route path="my-loans" element={<LoanList/>} />

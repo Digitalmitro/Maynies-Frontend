@@ -26,7 +26,7 @@ function Sidebar({ onItemClick }) {
     { label: "Leave Request", icon: <FaUmbrellaBeach />, path: "/dashboard/vacation" },
     { label: "Policies", icon: <FaBook />, path: "/dashboard/privacy" },
     { label: "Payroll", icon: <FaFileInvoiceDollar />, path: "/dashboard/payroll" },
-    { label: "Attendance", icon: <FaUserCheck /> },
+    { label: "Attendance", icon: <FaUserCheck /> ,path: "/dashboard/attendance"},
     { label: "Training", icon: <FaChalkboardTeacher /> },
     { label: "Demographics", icon: <FaUsers />, path: "/dashboard/profile" },
   ];

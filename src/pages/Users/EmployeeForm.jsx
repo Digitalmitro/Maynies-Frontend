@@ -70,7 +70,6 @@ const EmployeeProfile = () => {
           avatar_url: `${import.meta.env.VITE_BACKEND_API}${data.file_url}`,
         }));
         alert("Profile image uploaded successfully!");
-        
       } else {
         alert("Upload failed: " + data.message || "Unknown error");
       }
