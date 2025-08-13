@@ -1,123 +1,153 @@
-import { FaBell } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-
-const months = [
-  { month: "Feb 2025" },
-  { month: "Jan 2025" },
-  { month: "Dec 2024" },
-  { month: "Nov 2024" },
-  { month: "Oct 2024" },
-  { month: "Sept 2024" },
-  { month: "Aug 2024" },
-  { month: "Jul 2024" },
-];
-
-const completedMonths = [
-  { label: "Apr 2024", range: "MAR 26 - APR 25" },
-  { label: "May 2024", range: "APR 26 - MAY 25" },
-  { label: "Jun 2024", range: "MAY 26 - JUN 25" },
-  { label: "Jul 2024", range: "JUN 26 - JUL 25" },
-];
+import React, { useState } from "react";
 
 const Payroll = () => {
-    const navigate=useNavigate();
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
+  const [payrollList, setPayrollList] = useState([]);
+
+  const handleGeneratePayroll = async (e) => {
+    e.preventDefault();
+    if (!month || !year) {
+      alert("Please select month and year");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_BACKEND_API
+        }/api/employer/payroll/generate?month=${month}&year=${year}`,
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      if (!res.ok) throw new Error("Failed to generate payroll");
+
+      const data = await res.json();
+      console.log(data);
+      if (data?.payroll) {
+        setPayrollList((prev) => [...prev, data.payroll]); // Add to table
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error generating payroll");
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-white flex justify-center items-start p-4 md:p-10 relative">
-      <div className="w-full max-w-4xl bg-white  rounded-lg p-6">
-        {/* Bell Icon */}
-        <div className="absolute top-4 right-4 text-orange-500">
-          <FaBell />
-        </div>
+  <div className="p-6 bg-gray-50 min-h-screen">
+  {/* Payroll Generation Form */}
+  <form
+    onSubmit={handleGeneratePayroll}
+    className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6"
+  >
+    {/* Month */}
+    <select
+      value={month}
+      onChange={(e) => setMonth(e.target.value)}
+      className="border px-3 py-2 rounded w-full sm:w-auto"
+    >
+      <option value="">Select Month</option>
+      {Array.from({ length: 12 }, (_, i) => {
+        const m = String(i + 1).padStart(2, "0");
+        return (
+          <option key={m} value={m}>
+            {m}
+          </option>
+        );
+      })}
+    </select>
 
-        {/* Heading */}
-        <h2 className="text-center text-lg font-semibold mb-6">Payroll</h2>
+    {/* Year */}
+    <select
+      value={year}
+      onChange={(e) => setYear(e.target.value)}
+      className="border px-3 py-2 rounded w-full sm:w-auto"
+    >
+      <option value="">Select Year</option>
+      {Array.from({ length: 5 }, (_, i) => {
+        const y = new Date().getFullYear() - 2 + i;
+        return (
+          <option key={y} value={y}>
+            {y}
+          </option>
+        );
+      })}
+    </select>
 
-        {/* Completed Months */}
-        <div className="flex flex-wrap justify-center gap-4 mb-6">
-          {completedMonths.map((item, idx) => (
-            <div
-              key={idx}
-              className={`rounded-lg border px-4 py-2 text-center w-36 shadow-sm ${
-                item.selected
-                  ? "border-orange-500 bg-orange-50"
-                  : "border-gray-200"
-              }`}
-            >
-              <p className="text-sm font-semibold">{item.label}</p>
-              <p className="text-xs text-gray-500">{item.range}</p>
-              <p
-                className={`text-xs font-medium mt-1 ${
-                  item.selected ? "text-orange-500" : "text-green-600"
-                }`}
-              >
-                ● Completed
-              </p>
-            </div>
-          ))}
-        </div>
+    <button
+      type="submit"
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full sm:w-auto"
+    >
+      Generate Payroll
+    </button>
+  </form>
 
-        {/* View More Button */}
-        <div className="flex justify-center mb-6">
-          <button className="bg-orange-500 text-white px-6 py-2 rounded-md text-sm font-medium hover:bg-orange-600">
-            View More
-          </button>
-        </div>
-
-        {/* Table */}
-        <div className="border rounded-lg overflow-hidden">
-          <div className="grid grid-cols-2 bg-gray-100 text-sm font-semibold text-gray-700 p-3">
-            <div>Month</div>
-            <div>Action</div>
-          </div>
-          {months.map((item, idx) => (
-            <div
-              key={idx}
-              className="group grid grid-cols-2 text-sm p-3 items-center 
-               bg-gray-100 border-t hover:bg-orange-50 hover:border-orange-300"
-            >
-              <div>{item.month}</div>
-              <div className="flex gap-2">
+  {/* Payroll List Table */}
+  <div className="bg-white shadow rounded overflow-x-auto">
+    <table className="min-w-full border-collapse">
+      <thead>
+        <tr className="bg-gray-100 text-left">
+          <th className="px-4 py-2 border">Sl</th>
+          <th className="px-4 py-2 border">Month / Year</th>
+          {/* <th className="px-4 py-2 border">Base Salary</th> */}
+          {/* <th className="px-4 py-2 border">Bonus</th> */}
+          {/* <th className="px-4 py-2 border">Deductions</th> */}
+          {/* <th className="px-4 py-2 border">Net Salary</th> */}
+          <th className="px-4 py-2 border">Present Days</th>
+          <th className="px-4 py-2 border">Paid Leaves</th>
+          <th className="px-4 py-2 border">Unpaid Leaves</th>
+          <th className="px-4 py-2 border">Absent</th>
+          <th className="px-4 py-2 border">Working Days</th> 
+          {/* <th className="px-4 py-2 border">Currency</th> */}
+          <th className="px-4 py-2 border">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {payrollList.length > 0 ? (
+          payrollList.map((item, index) => (
+            <tr key={index} className="hover:bg-gray-50">
+              <td className="px-4 py-2 border">{index + 1}</td>
+              <td className="px-4 py-2 border">
+                {item.monthName?.toUpperCase() || item.month} / {item.year}
+              </td>
+               {/* <td className="px-4 py-2 border">{item.baseSalary}</td> */}
+              {/* <td className="px-4 py-2 border">{item.bonus}</td> */}
+              {/* <td className="px-4 py-2 border">{item.deductions}</td> */}
+              {/* <td className="px-4 py-2 border">{item.netSalary}</td> */}
+              <td className="px-4 py-2 border">{item.presentDays}</td>
+              <td className="px-4 py-2 border">{item.paidLeaves}</td>
+              <td className="px-4 py-2 border">{item.unpaidLeaves}</td>
+              <td className="px-4 py-2 border">{item.absent}</td>
+              <td className="px-4 py-2 border">{item.workingDays}</td> 
+              {/* <td className="px-4 py-2 border">{item.currency}</td> */}
+              <td className="px-4 py-2 border">
                 <button
-                  className="px-3 py-1 rounded-md text-xs border 
-                   bg-gray-200 text-gray-400 
-                   group-hover:bg-white group-hover:border-green-500 group-hover:text-green-500 cursor-pointer"
-                   onClick={()=>navigate("/dashboard/viewPayroll")}
-                >
-                  View
-                </button>
-                <button
-                  className="px-3 py-1 rounded-md text-xs border 
-                   bg-gray-200 text-gray-400 
-                   group-hover:bg-white group-hover:border-green-500 group-hover:text-green-500"
+                  onClick={() => window.open(item.downloadUrl, "_blank")}
+                  className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-500 w-full sm:w-auto"
                 >
                   Download
                 </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        <div className="flex justify-center mt-6 text-sm gap-2 items-center">
-          <button className="px-2 py-1 border rounded hover:bg-gray-200">
-            &lt;
-          </button>
-          {Array.from({ length: 12 }, (_, i) => (
-            <button
-              key={i}
-              className={`px-2 py-1 rounded ${
-                i === 10 ? "bg-orange-500 text-white" : "hover:bg-gray-200"
-              }`}
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan="13"
+              className="text-center px-4 py-6 text-gray-500"
             >
-              {i + 1}
-            </button>
-          ))}
-          <button className="px-2 py-1 border rounded hover:bg-gray-200">
-            &gt;
-          </button>
-        </div>
-      </div>
-    </div>
+              No payroll records found
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
+
   );
 };
 

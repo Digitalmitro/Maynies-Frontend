@@ -133,13 +133,10 @@ const LeaveRequestForm = () => {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center py-6">
-            <div className="animate-pulse flex space-x-4">
-              <div className="flex-1 space-y-4 py-1">
-                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
-              </div>
-            </div>
-          </div>
+         <div className="flex justify-center items-center h-20">
+          <div className="w-8 h-8 border-4 border-amber-600 border-t-transparent rounded-full animate-spin"></div>
+          
+        </div>
         )}
       </div>
       {/* Leave Request Form */}

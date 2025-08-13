@@ -40,6 +40,8 @@ import TemplateFormById from "./pages/Users/TemplateFormById";
 import LoanList from "./pages/Users/LoanList";
 import LoanDetails from "./pages/Users/LoanDetails";
 import EmployeeAttendance from "./pages/Users/EmployeeAttendance";
+import StudentPlan from "./pages/Users/StudentPlan";
+import StudentPlainDetails from "./pages/Users/StudentPlainDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -91,6 +93,8 @@ function App() {
           <Route path="studentDemographic" element={<StudentDemographic />} />
           <Route path="my-loans" element={<LoanList/>} />
           <Route path="loanDetails" element={<LoanDetails />} />
+          <Route path="student_plan" element={<StudentPlan />} />
+          <Route path="plan-details/:name" element={<StudentPlainDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

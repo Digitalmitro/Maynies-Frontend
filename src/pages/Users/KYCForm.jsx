@@ -46,14 +46,14 @@ const KYCForm = () => {
 
   return (
     <div className="max-w-xl mx-auto bg-white text-[#101C26] p-6  mt-4">
-      <h2 className="text-2xl font-semibold text-orange-600 mb-6 text-center">
+      <h2 className="text-2xl font-semibold text-amber-600 mb-6 text-center">
         Loan Request KYC Form
       </h2>
       <div className="mb-6 text-right">
         <button
           type="button"
           onClick={() => navigate("/dashboard/my-loans")}
-          className="bg-orange-100 text-orange-700 px-4 py-2 rounded-full font-medium hover:bg-orange-200 transition"
+          className="bg-orange-100 text-amber-700 px-4 py-2 rounded-full font-medium hover:bg-orange-200 transition"
         >
           📄 View My Loans
         </button>
@@ -119,7 +119,7 @@ const KYCForm = () => {
         >
           {loading ? (
             <div className="flex items-center justify-center gap-2">
-              <div className="w-4 h-4 border-2 border-white border-t-orange-600 rounded-full animate-spin"></div>
+              <div className="w-4 h-4 border-2 border-white border-t-amber-600 rounded-full animate-spin"></div>
               Submitting...
             </div>
           ) : (

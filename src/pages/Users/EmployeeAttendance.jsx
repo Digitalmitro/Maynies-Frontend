@@ -16,6 +16,7 @@ function EmployeeAttendance() {
   const [clockInData, setClockInData] = useState({});
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const clockIn=localStorage.getItem("clockInData")
 
   const getAttendance = async () => {
     try {
@@ -101,6 +102,7 @@ function EmployeeAttendance() {
       setClockInData(data?.data);
       // console.log(clockInData)
       if (res.ok) {
+        localStorage.setItem("clockInData", JSON.stringify(data?.data));
         setHasClockedIn(true);
         setClockInTime(current);
         setIsLate(false);
@@ -195,7 +197,7 @@ function EmployeeAttendance() {
           </div>
 
           <div className="p-6">
-            {!hasClockedIn ? (
+            {!clockIn ? (
               <div className="text-center">
                 <button
                   className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg shadow-md transition duration-200 transform hover:scale-105"
@@ -454,7 +456,7 @@ function EmployeeAttendance() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       <div className="flex flex-col">
                         <span>
-                          {record.check_out_time ? moment(record.check_in_time).format("hh:mm A") : "--"}
+                          {record.check_out_time ? moment(record.check_out_time).format("hh:mm A") : "--"}
                         </span>
                       </div>
                     </td>

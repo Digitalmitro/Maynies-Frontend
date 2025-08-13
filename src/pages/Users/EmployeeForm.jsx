@@ -151,7 +151,13 @@ const EmployeeProfile = () => {
     }
   };
 
-  if (!employee) return <p>Loading...</p>;
+  if (!employee)
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="w-8 h-8 border-4 border-green-600 border-t-transparent rounded-full animate-spin"></div>
+        <span className="ml-3 text-green-600 font-medium">Loading...</span>
+      </div>
+    );
 
   return (
     <div className="bg-white p-6 max-w-4xl mx-auto rounded-xl  relative">

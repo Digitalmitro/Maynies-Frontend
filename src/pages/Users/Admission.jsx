@@ -97,17 +97,16 @@ export default function AdmissionForm() {
       parent: form.parent,
     });
 
-    form.documents.forEach((file, i) => {
+    form.documents.forEach((file) => {
       if (file) data.append(`documents`, file);
     });
 
     try {
-      await axios.post(
+      const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/api/student/admission`,
         data,
         {
           withCredentials: true,
-          headers: { "Content-Type": "application/json" },
         }
       );
       if (res.status === 403) {
