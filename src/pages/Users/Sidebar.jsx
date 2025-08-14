@@ -52,11 +52,7 @@ function Sidebar({ onItemClick }) {
 
   const studentNavItems = [
     { label: "Admission", icon: <FaFileAlt />, path: "/dashboard/admission" },
-    {
-      label: "Payment",
-      icon: <FaFileInvoiceDollar />,
-      path: "/dashboard/payment",
-    },
+    
     {
       label: "Academic Calendar Year",
       icon: <FaFileInvoiceDollar />,

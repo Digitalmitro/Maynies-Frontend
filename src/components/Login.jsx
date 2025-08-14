@@ -24,8 +24,10 @@ function Login() {
         body: JSON.stringify(userLogin),
       });
       const data = await res.json();
+      console.log(data)
       if (res.ok) {
         localStorage.setItem("role", data?.data?.data?.role);
+        localStorage.setItem("id", data?.data?.data?.id);
        
         navigate("/");
       } else {

@@ -42,6 +42,8 @@ import LoanDetails from "./pages/Users/LoanDetails";
 import EmployeeAttendance from "./pages/Users/EmployeeAttendance";
 import StudentPlan from "./pages/Users/StudentPlan";
 import StudentPlainDetails from "./pages/Users/StudentPlainDetails";
+import MyPlans from "./pages/Users/MyPlans";
+import EnrolledPlanDetails from "./pages/Users/EnrolledPlanDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -95,6 +97,8 @@ function App() {
           <Route path="loanDetails" element={<LoanDetails />} />
           <Route path="student_plan" element={<StudentPlan />} />
           <Route path="plan-details/:name" element={<StudentPlainDetails />} />
+          <Route path="myPlans" element={<MyPlans />} />
+          <Route path="enrolled-plans/:id" element={<EnrolledPlanDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

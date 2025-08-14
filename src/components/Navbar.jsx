@@ -127,9 +127,26 @@ function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/login" onClick={toggleMenu}>
-                Sign Up / Log in
-              </Link>
+              {role ? (
+              <>
+                <li>
+                  <Link to="/dashboard" className="hover:text-[#00953B]">
+                    Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/cart" className="hover:text-[#00953B]">
+                    Cart
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/login" className="hover:text-[#00953B]">
+                  Sign Up / Log in
+                </Link>
+              </li>
+            )}
             </li>
           </ul>
         </div>

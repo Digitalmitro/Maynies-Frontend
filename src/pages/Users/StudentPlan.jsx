@@ -10,7 +10,7 @@ import {
   FiCreditCard,
   FiInfo,
 } from "react-icons/fi";
-
+import { FcNews } from "react-icons/fc";
 function StudentPlan() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +29,7 @@ function StudentPlan() {
         throw new Error("Failed to fetch plans");
       }
       const data = await response.json();
+      console.log(data?.plans)
       setPlans(data?.plans || []);
     } catch (error) {
       console.error("Error fetching student plan data:", error);
@@ -68,12 +69,12 @@ function StudentPlan() {
             </p>
           </div>
           <button
-            onClick={fetchStudentPlan}
+            onClick={() => navigate("/dashboard/myPlans")}
             disabled={loading}
             className="mt-4 md:mt-0 flex items-center px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors disabled:opacity-50"
           >
-            <FiRefreshCw className="h-5 w-5 mr-2" />
-            Refresh
+            <FcNews  className="h-5 w-5 mr-2" />
+            see your plans
           </button>
         </div>
 
