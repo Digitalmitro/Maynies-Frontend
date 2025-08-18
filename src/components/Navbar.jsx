@@ -33,7 +33,7 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/employee-portal" className="hover:text-[#00953B]">
                 Employee Portal
               </Link>
@@ -42,7 +42,7 @@ function Navbar() {
               <Link to="/student-portal" className="hover:text-[#00953B]">
                 Student Portal
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/careers" className="hover:text-[#00953B]">
                 Careers
@@ -69,6 +69,14 @@ function Navbar() {
                   <Link to="/cart" className="hover:text-[#00953B]">
                     Cart
                   </Link>
+                </li>
+                <li>
+                  <button onClick={() => {
+                    localStorage.clear();
+                    navigate("/login");
+                  }} className="hover:text-[#00953B]">
+                    Log Out
+                  </button>
                 </li>
               </>
             ) : (
@@ -101,7 +109,7 @@ function Navbar() {
                 About Us
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/employee-portal" onClick={toggleMenu}>
                 Employee Portal
               </Link>
@@ -110,7 +118,7 @@ function Navbar() {
               <Link to="/student-portal" onClick={toggleMenu}>
                 Student Portal
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/careers" onClick={toggleMenu}>
                 Careers
@@ -126,7 +134,6 @@ function Navbar() {
                 Contact Us
               </Link>
             </li>
-            <li>
               {role ? (
               <>
                 <li>
@@ -147,7 +154,6 @@ function Navbar() {
                 </Link>
               </li>
             )}
-            </li>
           </ul>
         </div>
       )}

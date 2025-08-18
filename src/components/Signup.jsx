@@ -6,32 +6,37 @@ import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 
 function Signup() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [register, setRegister] = useState({
     name: "",
     email: "",
     password: "",
     role: "",
   });
+  
   const navigate = useNavigate();
   const handleSumbit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/auth/register`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(register),
-      });
+      const res = await fetch(`
+        ${import.meta.env.VITE_BACKEND_API}/api/auth/register`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(register),
+        }
+      );
 
       const data = await res.json();
 
       if (res.ok) {
         console.log("Registration successful:", data);
-        localStorage.setItem("role", register?.role);
-        localStorage.setItem("email", register?.email);
+        // localStorage.setItem("role", register?.role);
+        // localStorage.setItem("email", register?.email);
         // localStorage.setItem("id", register?.id);
         navigate("/otp");
       } else {
@@ -41,6 +46,8 @@ function Signup() {
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +58,8 @@ function Signup() {
       [name]: value,
     }));
   };
+
+  console.log("Register state:", loading);
   return (
     <div className=" flex flex-col lg:flex-row ">
       <div className="flex flex-col justify-center items-center  lg:w-[35%] lg:py-10">
@@ -76,6 +85,7 @@ function Signup() {
             <input
               type="name"
               name="name"
+              required
               className="bg-white h-[50px] rounded outline-none px-4"
               onChange={handleInputChange}
             />
@@ -87,6 +97,7 @@ function Signup() {
             <input
               type="email"
               name="email"
+              required
               className="bg-white h-[50px] rounded outline-none px-4"
               onChange={handleInputChange}
             />
@@ -120,8 +131,9 @@ function Signup() {
               <input
                 id="password"
                 name="password"
-                type={showPassword ? "text" : "text"} // make 2nd text password later
+                type={showPassword ? "text" : "password"}
                 className="bg-white h-[50px] rounded outline-none px-4 pr-12 w-full"
+                required
                 onChange={handleInputChange}
               />
               <button
@@ -140,10 +152,16 @@ function Signup() {
           </div>
           <button
             type="submit"
-            className="bg-[#FE9900] mt-6 rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]"
-           
+            disabled={loading}
+            className={`mt-6 rounded px-4 py-2 w-[90%] lg:w-[50%] text-white transition-colors
+    ${
+      loading
+        ? "bg-[#FE9900]/60 cursor-not-allowed" // halka aur disabled cursor
+        : "bg-[#FE9900] hover:bg-[#e68900]"
+    }     // normal + hover
+  `}
           >
-            Sign Up
+            {loading ? "Signing up..." : "Sign Up"}
           </button>
           <p className="text-gray-500 font-medium pt-2">
             already have an account ?{" "}

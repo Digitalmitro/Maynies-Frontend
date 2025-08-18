@@ -17,6 +17,7 @@ function OtpVerification() {
     try {
       const response = await fetch("http://localhost:3000/api/auth/verify-otp", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -29,7 +30,9 @@ function OtpVerification() {
         throw new Error(data.message || "OTP verification failed");
       }
 
-     
+       localStorage.setItem("role", data?.data?.data?.role);
+        localStorage.setItem("id", data?.data?.data?.id);
+        localStorage.setItem("name", data?.data?.data?.name);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);

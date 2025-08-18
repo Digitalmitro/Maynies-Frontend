@@ -7,6 +7,7 @@ import { IoEyeSharp, IoEyeOffSharp } from "react-icons/io5";
 function Login() {
   const [enabled, setEnabled] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [userLogin, setUserLogin] = useState({
     email: "",
     password: "",
@@ -14,21 +15,26 @@ function Login() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_API}/api/auth/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userLogin),
-      });
+      const res = await fetch(`
+        ${import.meta.env.VITE_BACKEND_API}/api/auth/login`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userLogin),
+        }
+      );
       const data = await res.json();
-      console.log(data)
+      console.log(data);
       if (res.ok) {
         localStorage.setItem("role", data?.data?.data?.role);
         localStorage.setItem("id", data?.data?.data?.id);
-       
+        localStorage.setItem("name", data?.data?.data?.name);
+
         navigate("/");
       } else {
         console.error("Login failed:", data?.message || "Unknown error");
@@ -36,6 +42,8 @@ function Login() {
       }
     } catch (error) {
       console.log("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
   const handleInput = (e) => {
@@ -129,10 +137,18 @@ function Login() {
           </div>
           <button
             type="submit"
-            className="bg-[#FE9900] rounded px-4 py-2 text-white  w-[90%] lg:w-[50%]"
+            disabled={loading}
+            className={`rounded px-4 py-2 w-[90%] lg:w-[50%] text-white transition-colors
+    ${
+      loading
+        ? "bg-[#FE9900]/60 cursor-not-allowed"
+        : "bg-[#FE9900] hover:bg-[#e68900]"
+    }
+  `}
           >
-            Log In
+            {loading ? "Logging in..." : "Log In"}
           </button>
+
           <Link
             className="text-[#00953B] font-normal pt-4"
             to={"/forgotpassword"}

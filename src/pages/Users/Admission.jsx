@@ -134,10 +134,7 @@ export default function AdmissionForm() {
               <h2 className="text-lg sm:text-xl md:text-2xl font-semibold">
                 Admission Form
               </h2>
-              <p className="text-sm text-gray-500">
-                Drop your file here or{" "}
-                <span className="text-orange-500">browser</span>
-              </p>
+            
             </div>
           </div>
         </div>

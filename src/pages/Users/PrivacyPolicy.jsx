@@ -7,12 +7,7 @@ const PrivacyPolicy = () => {
     <div className="min-h-screen bg-white flex justify-center items-start p-4 md:p-10">
       <div className="w-full max-w-3xl bg-white rounded-lg p-6 relative">
 
-        {/* Top Icons */}
-        <div className="absolute top-4 right-4 flex gap-4 text-gray-500 text-sm">
-          <FaDownload className="cursor-pointer hover:text-black" />
-          <FaPrint className="cursor-pointer hover:text-black" />
-          <FaBell className="text-orange-500" />
-        </div>
+        
 
         {/* Heading */}
         <h2 className="text-center text-lg font-semibold mb-1">Privacy Policy</h2>
