@@ -11,6 +11,7 @@ import {
   FaUserCheck,
   FaChalkboardTeacher,
   FaUsers,
+  FaSignOutAlt
 } from "react-icons/fa";
 import NotRegistered from "../../components/Notregistered";
 function Sidebar({ onItemClick }) {
@@ -83,7 +84,11 @@ function Sidebar({ onItemClick }) {
     if (path) navigate(path);
     onItemClick?.();
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem("token");  
+    localStorage.removeItem("role");   
+    navigate("/");                
+  };
   return (
     <div className="h-full flex flex-col items-center py-2 bg-white">
       <img
@@ -104,6 +109,14 @@ function Sidebar({ onItemClick }) {
             <span className="text-sm">{item.label}</span>
           </li>
         ))}
+        <div className=" w-full">
+        <button
+          onClick={handleLogout}
+          className="flex items-center px-4 py-2 rounded gap-3 text-gray-700 transition-all cursor-pointer"
+        >
+          <FaSignOutAlt className="mr-2" /> Logout
+        </button>
+      </div>
       </ul>
     </div>
   );

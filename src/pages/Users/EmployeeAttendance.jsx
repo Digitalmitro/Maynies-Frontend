@@ -175,13 +175,13 @@ function EmployeeAttendance() {
     );
   }
 
-  if (attendanceData.length === 0) {
-    return (
-      <div className="bg-white rounded-lg shadow p-6 text-center">
-        <p className="text-gray-500">No attendance records found</p>
-      </div>
-    );
-  }
+  // if (attendanceData.length === 0) {
+  //   return (
+  //     <div className="bg-white rounded-lg shadow p-6 text-center">
+  //       <p className="text-gray-500">No attendance records found</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="mx-auto  min-h-screen">

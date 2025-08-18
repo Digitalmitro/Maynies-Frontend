@@ -32,6 +32,7 @@ function Signup() {
         console.log("Registration successful:", data);
         localStorage.setItem("role", register?.role);
         localStorage.setItem("email", register?.email);
+        // localStorage.setItem("id", register?.id);
         navigate("/otp");
       } else {
         console.error("Registration failed:", data?.message || "Unknown error");
