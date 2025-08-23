@@ -10,8 +10,7 @@ const PlainLayout = () => {
     const id = localStorage.getItem("id");
 
     if (role && id) {
-      // agar login hai toh previous page pe redirect kar
-      // ya agar directly login page pe aaya hai, toh "/" ya fallback route bhej
+    
       const from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     } else {
