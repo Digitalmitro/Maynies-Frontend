@@ -47,7 +47,7 @@ function Sidebar({ onItemClick }) {
       icon: <FaUserCheck />,
       path: "/dashboard/attendance",
     },
-    { label: "Training", icon: <FaChalkboardTeacher /> },
+
     { label: "Demographics", icon: <FaUsers />, path: "/dashboard/profile" },
   ];
 

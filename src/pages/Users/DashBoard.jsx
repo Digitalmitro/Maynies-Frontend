@@ -24,6 +24,8 @@ ChartJS.register(
 );
 
 function DashBoard() {
+  const name=localStorage.getItem("name") || "User";
+  const role=localStorage.getItem("role") || "";
   const lineChartData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May"],
     datasets: [
@@ -69,8 +71,8 @@ function DashBoard() {
     {/* Header */}
     <div className="flex justify-between items-center flex-wrap gap-2">
       <div>
-        <h2 className="text-xl md:text-2xl font-semibold">Hello, Employee Name!</h2>
-        <p className="text-gray-500 text-sm md:text-base">Designation</p>
+        <h2 className="text-xl md:text-2xl font-semibold">Hello, {name}</h2>
+        <p className="text-gray-500 text-sm md:text-base capitalize">{role}</p>
       </div>
     </div>
 
