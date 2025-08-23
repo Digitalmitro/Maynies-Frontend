@@ -37,11 +37,7 @@ function Signup() {
         console.log("Registration successful:", data);
         // localStorage.setItem("role", register?.role);
         localStorage.setItem("email_temp", register?.email);
-        // localStorage.setItem("id", register?.id);
         navigate("/otp");
-      } else {
-        console.error("Registration failed:", data?.message || "Unknown error");
-        alert(data?.message || "Registration failed.");
       }
     } catch (error) {
       console.error("Error:", error);
