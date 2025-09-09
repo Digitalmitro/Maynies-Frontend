@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function TemplateFormById() {
   const location = useLocation();
@@ -7,8 +7,9 @@ function TemplateFormById() {
   const [formTemplate, setFormTemplate] = useState(null);
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   // const [data, setData] = useState(null);
-
+  const [attachment, setAttachment] = useState(null);
   useEffect(() => {
     if (!templateId) return;
 
@@ -74,226 +75,237 @@ function TemplateFormById() {
     const data = await res.json();
     console.log("data", data);
     if (data.file_url) {
-      setFormData((prev) => ({
-        ...prev,
-        receipt: `${import.meta.env.VITE_BACKEND_API}${data.file_url}`,
-      }));
+      setAttachment({
+        name: file.name,
+        url: `${import.meta.env.VITE_BACKEND_API}${data.file_url}`,
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting form data:", formData);
+    console.log("Submitting form data:", attachment, formData);
 
     const res = await fetch(
-      `${import.meta.env.VITE_BACKEND_API}/api/employer/form/submit`,
+      `${
+        import.meta.env.VITE_BACKEND_API
+      }/api/employer/form/form-template/${templateId}`,
       {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          formTemplateId: templateId,
-          data: {
-            ...formData,
-            amount: Number(formData.amount),
-          },
+          data: formData,
+          attachments: attachment,
         }),
       }
     );
 
     const data = await res.json();
-    if (data.success) {
+    if (data.submission) {
       alert("Form submitted successfully!");
+      navigate("/dashboard/employeeForms")
     } else {
       alert("Something went wrong!");
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading form...</p>;
-  if (!formTemplate) return <p className="text-center mt-10">Form not found</p>;
+  if (loading) return <p className='text-center mt-10'>Loading form...</p>;
+  if (!formTemplate) return <p className='text-center mt-10'>Form not found</p>;
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-8 ">
-  {/* Form Header */}
-  <div className="mb-8 text-center">
-    <h2 className="text-2xl font-semibold text-gray-800">
-      {formTemplate?.title}
-    </h2>
-    <p className="text-gray-500 mt-2">
-      {formTemplate?.description}
-    </p>
-  </div>
+    <div className='max-w-2xl mx-auto bg-white p-8 '>
+      {/* Form Header */}
+      <div className='mb-8 text-center'>
+        <h2 className='text-2xl font-semibold text-gray-800'>
+          {formTemplate?.title}
+        </h2>
+        <p className='text-gray-500 mt-2'>{formTemplate?.description}</p>
+      </div>
 
-  {/* Form Fields */}
-  <form onSubmit={handleSubmit} className="space-y-6">
-    {formTemplate.fields.map((field) => {
-      const type = field.type?.toLowerCase();
+      {/* Form Fields */}
+      <form onSubmit={handleSubmit} className='space-y-6'>
+        {formTemplate.fields.map((field) => {
+          const type = field.type?.toLowerCase();
 
-      switch (type) {
-        // Text Inputs
-        case "text":
-        case "password":
-        case "email":
-        case "number":
-        case "date":
-        case "datetime-local":
-          return (
-            <div key={field.name} className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">
-                {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
-              </label>
-              <input
-                type={type}
-                required={field.required}
-                min={field.min}
-                max={field.max}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                value={formData[field.name] || ""}
-                onChange={(e) => handleChange(field.name, e.target.value)}
-              />
-            </div>
-          );
-
-        // Dropdown Select
-        case "select":
-        case "dropdown":
-          return (
-            <div key={field.name} className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">
-                {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
-              </label>
-              <select
-                required={field.required}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                value={formData[field.name] || ""}
-                onChange={(e) => handleChange(field.name, e.target.value)}
-              >
-                <option value="">Select an option</option>
-                {field.options?.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
-          );
-
-        // Radio Buttons
-        case "radio":
-          return (
-            <div key={field.name} className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">
-                {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
-              </label>
-              <div className="flex flex-wrap gap-4 mt-2">
-                {field.options?.map((opt) => (
-                  <label key={opt} className="inline-flex items-center">
-                    <input
-                      type="radio"
-                      name={field.name}
-                      value={opt}
-                      required={field.required}
-                      checked={formData[field.name] === opt}
-                      onChange={(e) =>
-                        handleChange(field.name, e.target.value)
-                      }
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                    />
-                    <span className="ml-2 text-gray-700">{opt}</span>
+          switch (type) {
+            // Text Inputs
+            case "text":
+            case "password":
+            case "email":
+            case "number":
+            case "date":
+            case "textarea":
+              return (
+                <div key={field.name} className='space-y-1'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    {field.label}
+                    {field.required && (
+                      <span className='text-red-500 ml-1'>*</span>
+                    )}
                   </label>
-                ))}
-              </div>
-            </div>
-          );
-
-        // Checkboxes
-        case "checkbox":
-          return (
-            <div key={field.name} className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">
-                {field.label}
-              </label>
-              <div className="flex flex-wrap gap-4 mt-2">
-                {field.options?.map((opt) => (
-                  <label key={opt} className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      name={field.name}
-                      value={opt}
-                      checked={formData[field.name]?.includes(opt)}
-                      onChange={(e) => {
-                        const valueArray = formData[field.name] || [];
-                        if (e.target.checked) {
-                          handleChange(field.name, [...valueArray, opt]);
-                        } else {
-                          handleChange(
-                            field.name,
-                            valueArray.filter((v) => v !== opt)
-                          );
-                        }
-                      }}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                    />
-                    <span className="ml-2 text-gray-700">{opt}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          );
-
-        // File Upload
-        case "file":
-          return (
-            <div key={field.name} className="space-y-1">
-              <label className="block text-sm font-medium text-gray-700">
-                {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
-              </label>
-              <div className="mt-1 flex items-center">
-                <label className="cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                  Choose File
                   <input
-                    type="file"
-                    accept={field.accept?.join(",")}
+                    type={type}
                     required={field.required}
-                    className="sr-only"
-                    onChange={(e) => handleFileUpload(e)}
+                    min={field.min}
+                    max={field.max}
+                    className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition'
+                    value={formData[field.name] || ""}
+                    onChange={(e) => handleChange(field.name, e.target.value)}
                   />
-                </label>
-                <span className="ml-2 text-sm text-gray-500">
-                  {formData[field.name]?.name || "No file chosen"}
-                </span>
-              </div>
-            </div>
-          );
+                </div>
+              );
 
-        default:
-          return (
-            <div key={field.name}>
-              <p className="text-red-500 text-sm">
-                Unsupported field type: {field.type}
-              </p>
-            </div>
-          );
-      }
-    })}
+            // Dropdown Select
+            case "select":
+            case "dropdown":
+              return (
+                <div key={field.name} className='space-y-1'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    {field.label}
+                    {field.required && (
+                      <span className='text-red-500 ml-1'>*</span>
+                    )}
+                  </label>
+                  <select
+                    required={field.required}
+                    className='w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition'
+                    value={formData[field.name] || ""}
+                    onChange={(e) => handleChange(field.name, e.target.value)}
+                  >
+                    <option value=''>Select an option</option>
+                    {field.options?.map((opt) => (
+                      <option key={opt._id} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
 
-    {/* Submit Button */}
-    <div className="pt-4">
-      <button
-        type="submit"
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-      >
-        Submit
-      </button>
-    </div>
-  </form>
+            // Radio Buttons
+            case "radio":
+              return (
+                <div key={field.name} className='space-y-1'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    {field.label}
+                    {field.required && (
+                      <span className='text-red-500 ml-1'>*</span>
+                    )}
+                  </label>
+                  <div className='flex flex-wrap gap-4 mt-2'>
+                    {field.options?.map((opt) => (
+                      <label key={opt._id} className='inline-flex items-center'>
+                        <input
+                          type='radio'
+                          name={field.name}
+                          value={opt.value}
+                          required={field.required}
+                          checked={formData[field.name] === opt.value}
+                          onChange={(e) =>
+                            handleChange(field.name, e.target.value)
+                          }
+                          className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300'
+                        />
+                        <span className='ml-2 text-gray-700'>{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              );
 
-  {/* Form Submissions Section */}
-  {/* <div className="mt-12">
+            // Checkboxes
+            case "checkbox":
+              return (
+                <div key={field.name} className='space-y-1'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    {field.label}
+                  </label>
+                  <div className='flex flex-wrap gap-4 mt-2'>
+                    {field.options?.map((opt) => (
+                      <label key={opt._id} className='inline-flex items-center'>
+                        <input
+                          type='checkbox'
+                          name={field.name}
+                          value={opt.value}
+                          checked={formData[field.name]?.includes(opt.value)}
+                          onChange={(e) => {
+                            const valueArray = formData[field.name] || [];
+                            if (e.target.checked) {
+                              handleChange(field.name, [
+                                ...valueArray,
+                                opt.value,
+                              ]);
+                            } else {
+                              handleChange(
+                                field.name,
+                                valueArray.filter((v) => v !== opt.value)
+                              );
+                            }
+                          }}
+                          className='h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded'
+                        />
+                        <span className='ml-2 text-gray-700'>{opt.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              );
+
+            // File Upload
+            case "file":
+              return (
+                <div key={field.name} className='space-y-1'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    {field.label}
+                    {field.required && (
+                      <span className='text-red-500 ml-1'>*</span>
+                    )}
+                  </label>
+                  <div className='mt-1 flex items-center'>
+                    <label className='cursor-pointer bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'>
+                      Choose File
+                      <input
+                        type='file'
+                        accept={field.accept?.join(",")}
+                        required={field.required}
+                        className='sr-only'
+                        onChange={(e) => handleFileUpload(e)}
+                      />
+                    </label>
+                    <span className='ml-2 text-sm text-gray-500'>
+                      {formData[field.name]
+                        ? "File uploaded ✅"
+                        : "No file chosen"}
+                    </span>
+                  </div>
+                </div>
+              );
+
+            default:
+              return (
+                <div key={field.name}>
+                  <p className='text-red-500 text-sm'>
+                    Unsupported field type: {field.type}
+                  </p>
+                </div>
+              );
+          }
+        })}
+
+        {/* Submit Button */}
+        <div className='pt-4'>
+          <button
+            type='submit'
+            className='w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md shadow-sm transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+
+      {/* Form Submissions Section */}
+      {/* <div className="mt-12">
     <h2 className="text-xl font-semibold text-gray-800 mb-4">Form Submissions</h2>
 
     <div className="space-y-3">
@@ -331,7 +343,7 @@ function TemplateFormById() {
       )}
     </div>
   </div> */}
-</div>
+    </div>
   );
 }
 
